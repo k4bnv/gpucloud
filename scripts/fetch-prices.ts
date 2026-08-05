@@ -42,15 +42,33 @@ const FETCH_TIMEOUT_MS = 15_000;
  * "H100 SXM", "Hopper H100"...). This maps a raw provider string down to a
  * short list of tokens; if the cleaned name contains any of them, it's a
  * match for that catalog id. Order matters where one pattern could be a
- * substring of another (none currently overlap in our 5-card catalog, but
- * more specific patterns are listed first as a safeguard for future GPUs).
+ * substring of another — kept in sync with every id in src/data/gpus.json;
+ * a GPU added there without a matching entry here will just be silently
+ * invisible to live sync (it did happen once: 11 GPUs were added to the
+ * catalog without updating this list, see the "1 live offer(s) didn't
+ * match" log line pointing at a real RunPod offer this would've caught).
+ *
+ * Two substring traps to keep in mind when adding new patterns:
+ *   - "l4" is a substring of "l40s" → l40s must be checked first.
+ *   - "a10" is a substring of "a100" → a100 must be checked first.
  */
 const GPU_NAME_PATTERNS: Array<{ id: string; patterns: string[] }> = [
+  { id: "nvidia-rtx-6000-ada", patterns: ["rtx 6000 ada", "6000 ada"] },
   { id: "nvidia-rtx-a6000", patterns: ["rtx a6000", "a6000"] },
   { id: "nvidia-l40s", patterns: ["l40s", "l40 s"] },
+  { id: "nvidia-l4", patterns: ["l4"] },
+  { id: "nvidia-rtx-5090", patterns: ["rtx 5090", "5090"] },
   { id: "nvidia-rtx-4090", patterns: ["rtx 4090", "4090"] },
+  { id: "nvidia-rtx-3090", patterns: ["rtx 3090", "3090"] },
+  { id: "nvidia-h200", patterns: ["h200"] },
   { id: "nvidia-h100", patterns: ["h100"] },
+  { id: "nvidia-b200", patterns: ["b200"] },
   { id: "nvidia-a100", patterns: ["a100"] },
+  { id: "nvidia-a40", patterns: ["a40"] },
+  { id: "nvidia-a10", patterns: ["a10"] },
+  { id: "nvidia-v100", patterns: ["v100"] },
+  { id: "nvidia-t4", patterns: ["t4"] },
+  { id: "amd-mi300x", patterns: ["mi300x", "mi300"] },
 ];
 
 /**

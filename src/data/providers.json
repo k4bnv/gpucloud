@@ -350,6 +350,31 @@
     "has_api_cli": true
   },
   {
+    "id": "runpod",
+    "name": "RunPod",
+    "slug": "runpod",
+    "logo_emoji": "🟢",
+    "affiliate_url": "https://runpod.io/?ref=AFFILIATE_ID",
+    "gpu_id": "nvidia-rtx-a6000",
+    "price_on_demand": 0.75,
+    "price_spot": 0.52,
+    "storage_cost_per_gb": 0.1,
+    "egress_cost_per_gb": 0.05,
+    "rating": 4.8,
+    "review_count": 1240,
+    "regions": [
+      "US-CA",
+      "US-TX",
+      "EU-NL",
+      "EU-SE"
+    ],
+    "min_billing_increment": "per second",
+    "interruption_risk": "Medium",
+    "payment_model": "Marketplace",
+    "cloud_type": "Secure",
+    "has_api_cli": true
+  },
+  {
     "id": "vast-ai",
     "name": "Vast.ai",
     "slug": "vast-ai",
