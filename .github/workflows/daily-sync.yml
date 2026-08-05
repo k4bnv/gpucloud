@@ -46,6 +46,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Set up Python (for the CloudRift/JarvisLabs gpuhunt fetchers)
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install gpuhunt
+        run: pip install -r scripts/gpuhunt/requirements.txt
+
       - name: Sync GPU cloud prices
         run: npm run sync-prices
         env:
@@ -53,6 +61,9 @@ jobs:
           RUNPOD_API_KEY: ${{ secrets.RUNPOD_API_KEY }}
           HYPERSTACK_API_KEY: ${{ secrets.HYPERSTACK_API_KEY }}
           THUNDER_API_KEY: ${{ secrets.THUNDER_API_KEY }}
+          JARVISLABS_API_KEY: ${{ secrets.JARVISLABS_API_KEY }}
+          HOTAISLE_API_KEY: ${{ secrets.HOTAISLE_API_KEY }}
+          HOTAISLE_TEAM_HANDLE: ${{ secrets.HOTAISLE_TEAM_HANDLE }}
 
       - name: Check for data changes
         id: diff

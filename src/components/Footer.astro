@@ -8,6 +8,14 @@ const gpuList = getAllGpus();
 const providerList = getAllProviders();
 const useCases = useCasesData as { slug: string; short_title: string }[];
 const year = new Date().getFullYear();
+
+// Curated, not the full catalog — footer links to the 6 most-searched-for
+// cards (a mix of current-gen training, budget/consumer and
+// inference-optimized) rather than all 16, so the column doesn't dwarf
+// "Providers"/"Best GPU for…" next to it. Full catalog is one click away
+// via "All GPUs →", same pattern as "All comparisons →" below.
+const POPULAR_GPU_IDS = ["nvidia-h100", "nvidia-a100", "nvidia-rtx-4090", "nvidia-h200", "nvidia-l40s", "nvidia-rtx-3090"];
+const popularGpus = POPULAR_GPU_IDS.map((id) => gpuList.find((g) => g.id === id)).filter((g): g is (typeof gpuList)[number] => g !== undefined);
 ---
 
 <footer class="mt-24 border-t border-surface-700 bg-surface-900/40">
@@ -15,9 +23,12 @@ const year = new Date().getFullYear();
     <div>
       <p class="mb-3 text-sm font-semibold text-slate-300">GPUs</p>
       <ul class="space-y-2 text-sm text-slate-500">
-        {gpuList.map((gpu) => (
+        {popularGpus.map((gpu) => (
           <li><a href={`/gpu/${gpu.id}/`} class="hover:text-neon-green">{gpu.name}</a></li>
         ))}
+        <li>
+          <a href="/" class="font-medium hover:text-neon-green">All GPUs →</a>
+        </li>
       </ul>
     </div>
 

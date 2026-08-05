@@ -1,9 +1,9 @@
 # GPUCompare.cloud
 
 Programmatic-SEO price comparison site for GPU cloud rental (RunPod, Vast.ai,
-Hyperstack, Paperspace, Novita AI, Thunder Compute). Astro + React islands + Tailwind, fully
-static (SSG), built for speed, mobile-first layout and affiliate-link
-conversion.
+Hyperstack, Paperspace, Novita AI, Thunder Compute, CloudRift, JarvisLabs,
+Hot Aisle). Astro + React islands + Tailwind, fully static (SSG), built for
+speed, mobile-first layout and affiliate-link conversion.
 
 > **Deploying this?** See [DEPLOYMENT.md](DEPLOYMENT.md) for the full
 > guide — environment variables, self-hosted Docker, static-host CI, and
@@ -37,14 +37,24 @@ see below. Affiliate URLs default to a `?ref=AFFILIATE_ID` placeholder but
 are meant to be overridden via environment variables, not hand-edited in
 the JSON — see **[Affiliate links](#affiliate-links)**.
 
-**Provider price freshness varies by source.** Hyperstack and Thunder Compute
-now have real live fetchers (see the fetcher table below) — set their API
-keys and their rows self-correct on every sync, same as RunPod/Vast.ai.
-Paperspace and Novita AI don't have a fetcher yet: Novita AI's committed
-rows were cross-checked against gpus.io's live aggregator at the time they
-were added but won't self-correct after that; Paperspace's rows are a rough
-ballpark estimate, not verified against its own pricing page. Re-verify
-both periodically before relying on them for real traffic.
+**Provider price freshness varies by source.** Hyperstack, Thunder Compute,
+CloudRift, JarvisLabs and Hot Aisle now have real live fetchers (see the
+fetcher table below) — set their API keys (CloudRift needs none) and their
+rows self-correct on every sync, same as RunPod/Vast.ai. Paperspace and Novita AI
+don't have a fetcher yet: Novita AI's committed rows were cross-checked
+against gpus.io's live aggregator at the time they were added but won't
+self-correct after that; Paperspace's rows are a rough ballpark estimate,
+not verified against its own pricing page. Re-verify both periodically
+before relying on them for real traffic.
+
+**Why not just scrape a price-comparison aggregator (gpus.io,
+gputracker.dev, GetDeploying...) for everything?** Their Terms of Service
+explicitly forbid feeding their aggregated data into a competing
+comparison product — that's not a technicality, it's their whole business
+model. Every fetcher here instead talks to a GPU cloud's own first-party
+API, or (for CloudRift/JarvisLabs) goes through `gpuhunt`
+(github.com/dstackai/gpuhunt, MPL-2.0), a genuinely open-source library
+that itself calls those same first-party APIs — not an aggregator.
 
 ## Routes
 
@@ -96,7 +106,37 @@ throwing.
 | **RunPod** | GraphQL `gpuTypes` query, requires an API key | No-ops (not an error) if `RUNPOD_API_KEY` isn't set |
 | **Hyperstack** | Infrahub API — `/core/flavors` + `/pricebook`, requires an API key | No-ops (not an error) if `HYPERSTACK_API_KEY` isn't set |
 | **Thunder Compute** | `/v2/pricing` + `/v2/specs`, requires an API key | No-ops (not an error) if `THUNDER_API_KEY` isn't set |
+| **CloudRift** | `api.cloudrift.ai/api/v1/instance-types/list`, no auth — via `gpuhunt` (see below) | Runs as-is; on any failure (including Python/gpuhunt missing), keeps existing prices |
+| **JarvisLabs** | `/misc/server_meta`, requires an API key — via `gpuhunt` (see below) | No-ops (not an error) if `JARVISLABS_API_KEY` isn't set |
+| **Hot Aisle** | `admin.hotaisle.app/.../virtual_machines/available/`, requires an API key + team handle — via `gpuhunt` (see below) | No-ops (not an error) if `HOTAISLE_API_KEY`/`HOTAISLE_TEAM_HANDLE` aren't set. AMD MI300X/MI355X only, no NVIDIA. |
 | **Paperspace, Novita AI** | No confirmed stable public pricing API | Always keeps the last committed price (documented fetcher stub — swap in a real integration per provider once one's confirmed) |
+
+CloudRift, JarvisLabs and Hot Aisle are the one exception to "every fetcher
+is a plain Node `fetch` call": all three are routed through
+[`gpuhunt`](https://github.com/dstackai/gpuhunt) (MPL-2.0), a real
+open-source Python library that itself calls those providers' first-party
+APIs — see `scripts/gpuhunt/fetch_gpuhunt.py` for the thin CLI wrapper and
+the big comment in `scripts/fetch-prices.ts` (section 3f) for why. This
+means `npm run sync-prices` needs a `python3`/`python` on `PATH` with
+`pip install -r scripts/gpuhunt/requirements.txt` run once for those rows
+to self-correct; without it, all three fetchers fail closed (keep the last
+committed price) exactly like a missing API key does for everyone else —
+it never breaks the build. Self-hosted Docker bakes this venv into the
+image already (see the Dockerfile); the static-host CI path
+(`.github/workflows/daily-sync.yml`) sets it up with `actions/setup-python`
+before `npm run sync-prices`. Set `GPUHUNT_PYTHON_BIN` to point at a
+specific interpreter instead of relying on `PATH` lookup (this is how the
+Docker image wires up its venv).
+
+Not every provider `gpuhunt` supports gets added here, though — **Vultr**
+is also auth-free but was deliberately left out after checking its actual
+catalog: its GPU "offers" are either fractional vGPU slices (a 2-8GB
+sliver of an A16/A40, not the full card — the instance names literally end
+in `-2vram`/`-4vram`) or one 8-GPU-only bare-metal bundle with no
+single-GPU price at all. Neither fits this schema's per-full-GPU hourly
+rate without either mislabeling a fraction as a full card or fabricating a
+per-GPU number by dividing a bundle price — so it stays out rather than
+show something misleading.
 
 `normalizeGpuName()` maps each provider's raw GPU string ("GeForce RTX 4090
 24GB", "H100 SXM5", …) down to our catalog ids; anything that doesn't match
@@ -169,6 +209,9 @@ present at runtime to keep rebuilding, not just to serve static files.
 ```bash
 cd gpu-cloud-compare
 npm install
+pip install -r scripts/gpuhunt/requirements.txt  # optional — only needed for the
+                                                  # CloudRift/JarvisLabs live fetchers;
+                                                  # everything else works without it
 npm run dev          # http://localhost:4321
 npm run sync-prices  # refresh src/data/*.json from live provider APIs
 npm run build        # sync-prices + astro check + static build -> dist/

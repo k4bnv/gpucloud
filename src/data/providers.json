@@ -439,8 +439,8 @@
     "payment_model": "Marketplace",
     "cloud_type": "Community",
     "has_api_cli": true,
-    "last_updated": "2026-08-05T14:23:41.364Z",
-    "available_count": 2
+    "last_updated": "2026-08-05T19:51:41.985Z",
+    "available_count": 1
   },
   {
     "id": "vast-ai",
@@ -507,7 +507,7 @@
     "payment_model": "Marketplace",
     "cloud_type": "Community",
     "has_api_cli": true,
-    "last_updated": "2026-08-05T14:23:41.364Z",
+    "last_updated": "2026-08-05T19:35:45.349Z",
     "available_count": 1
   },
   {
@@ -584,7 +584,7 @@
     "affiliate_url": "https://vast.ai/?ref=AFFILIATE_ID",
     "gpu_id": "nvidia-rtx-5090",
     "price_on_demand": 0.21,
-    "price_spot": 0.1,
+    "price_spot": 0.13,
     "storage_cost_per_gb": 0.08,
     "egress_cost_per_gb": 0,
     "rating": 4.5,
@@ -597,8 +597,8 @@
     "payment_model": "Marketplace",
     "cloud_type": "Community",
     "has_api_cli": true,
-    "last_updated": "2026-08-05T14:23:41.364Z",
-    "available_count": 4
+    "last_updated": "2026-08-05T19:51:41.985Z",
+    "available_count": 6
   },
   {
     "id": "vast-ai",
@@ -870,6 +870,124 @@
       "US"
     ],
     "min_billing_increment": "per hour",
+    "interruption_risk": "None",
+    "payment_model": "On-Demand Cloud",
+    "cloud_type": "Secure",
+    "has_api_cli": true
+  },
+  {
+    "id": "cloudrift",
+    "name": "CloudRift",
+    "slug": "cloudrift",
+    "logo_emoji": "🛰️",
+    "affiliate_url": "https://cloudrift.ai/?ref=AFFILIATE_ID",
+    "gpu_id": "nvidia-rtx-4090",
+    "price_on_demand": 0.39,
+    "price_spot": null,
+    "storage_cost_per_gb": 0.05,
+    "egress_cost_per_gb": 0,
+    "rating": 4.2,
+    "review_count": 20,
+    "regions": [
+      "US",
+      "EU",
+      "AP"
+    ],
+    "min_billing_increment": "per hour",
+    "interruption_risk": "None",
+    "payment_model": "On-Demand Cloud",
+    "cloud_type": "Secure",
+    "has_api_cli": true,
+    "last_updated": "2026-08-05T19:48:07.310Z"
+  },
+  {
+    "id": "cloudrift",
+    "name": "CloudRift",
+    "slug": "cloudrift",
+    "logo_emoji": "🛰️",
+    "affiliate_url": "https://cloudrift.ai/?ref=AFFILIATE_ID",
+    "gpu_id": "nvidia-rtx-5090",
+    "price_on_demand": 0.65,
+    "price_spot": null,
+    "storage_cost_per_gb": 0.05,
+    "egress_cost_per_gb": 0,
+    "rating": 4.2,
+    "review_count": 20,
+    "regions": [
+      "US",
+      "EU",
+      "AP"
+    ],
+    "min_billing_increment": "per hour",
+    "interruption_risk": "None",
+    "payment_model": "On-Demand Cloud",
+    "cloud_type": "Secure",
+    "has_api_cli": true,
+    "last_updated": "2026-08-05T19:48:07.310Z"
+  },
+  {
+    "id": "jarvislabs",
+    "name": "JarvisLabs",
+    "slug": "jarvislabs",
+    "logo_emoji": "🧠",
+    "affiliate_url": "https://jarvislabs.ai/?ref=AFFILIATE_ID",
+    "gpu_id": "nvidia-h100",
+    "price_on_demand": 2.69,
+    "price_spot": null,
+    "storage_cost_per_gb": 0.1,
+    "egress_cost_per_gb": 0,
+    "rating": 4.3,
+    "review_count": 45,
+    "regions": [
+      "IN",
+      "EU"
+    ],
+    "min_billing_increment": "per minute",
+    "interruption_risk": "None",
+    "payment_model": "On-Demand Cloud",
+    "cloud_type": "Secure",
+    "has_api_cli": true
+  },
+  {
+    "id": "jarvislabs",
+    "name": "JarvisLabs",
+    "slug": "jarvislabs",
+    "logo_emoji": "🧠",
+    "affiliate_url": "https://jarvislabs.ai/?ref=AFFILIATE_ID",
+    "gpu_id": "nvidia-a100",
+    "price_on_demand": 1.49,
+    "price_spot": null,
+    "storage_cost_per_gb": 0.1,
+    "egress_cost_per_gb": 0,
+    "rating": 4.3,
+    "review_count": 45,
+    "regions": [
+      "IN",
+      "EU"
+    ],
+    "min_billing_increment": "per minute",
+    "interruption_risk": "None",
+    "payment_model": "On-Demand Cloud",
+    "cloud_type": "Secure",
+    "has_api_cli": true
+  },
+  {
+    "id": "hotaisle",
+    "name": "Hot Aisle",
+    "slug": "hotaisle",
+    "logo_emoji": "🔥",
+    "affiliate_url": "https://hotaisle.xyz/?ref=AFFILIATE_ID",
+    "gpu_id": "amd-mi300x",
+    "price_on_demand": 2.99,
+    "price_spot": null,
+    "storage_cost_per_gb": 0.1,
+    "egress_cost_per_gb": 0,
+    "rating": 4.4,
+    "review_count": 15,
+    "regions": [
+      "US"
+    ],
+    "min_billing_increment": "per minute",
     "interruption_risk": "None",
     "payment_model": "On-Demand Cloud",
     "cloud_type": "Secure",

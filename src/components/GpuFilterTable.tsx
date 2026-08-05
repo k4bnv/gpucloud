@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { ArrowUpDown, ExternalLink, Search, SlidersHorizontal, Star, Zap } from "lucide-react";
+import { ArrowUpDown, Clock, ExternalLink, PackageCheck, Search, SlidersHorizontal, Star, Zap } from "lucide-react";
 import { cn } from "@/lib/cn";
 import type { TargetTask } from "@/types";
 
@@ -17,6 +17,10 @@ export interface GpuTableRow {
   pricePerVramHr: number;
   providerCount: number;
   rating: number;
+  /** Freshness of `bestProviderName`'s own price, pre-formatted at build time ("2h ago"), or null if it's a static/hand-seeded fixture (never synced live). */
+  lastUpdatedLabel: string | null;
+  /** Live-listed instance count for `bestProviderName`'s offer, or null if that source API doesn't report one. */
+  availableCount: number | null;
 }
 
 type SortKey = "price" | "price-per-vram" | "vram" | "rating";
@@ -237,7 +241,24 @@ export default function GpuFilterTable({ rows }: Props) {
                       </span>
                     )}
                   </div>
-                  <div className="text-xs text-slate-500">via {row.bestProviderName}</div>
+                  <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-slate-500">
+                    <span>via {row.bestProviderName}</span>
+                    {row.lastUpdatedLabel && (
+                      <span
+                        className="inline-flex items-center gap-1 text-neon-green/80"
+                        title="Live-synced price, refreshed straight from the provider's API"
+                      >
+                        <Clock size={10} />
+                        {row.lastUpdatedLabel}
+                      </span>
+                    )}
+                    {row.availableCount !== null && (
+                      <span className="inline-flex items-center gap-1" title="Instances currently listed as available">
+                        <PackageCheck size={10} />
+                        {row.availableCount} in stock
+                      </span>
+                    )}
+                  </div>
                 </td>
                 <td className="px-4 py-3">
                   {row.bestPriceSpot !== null ? (

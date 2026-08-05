@@ -1,10 +1,15 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import GpuFilterTable, { type GpuTableRow } from "@/components/GpuFilterTable";
-import { getAllGpus, getComputedOffersForGpu } from "@/lib/data";
+import { getAllGpus, getAllProviders, getComputedOffersForGpu, formatRelativeTime } from "@/lib/data";
 import { buildMeta } from "@/lib/seo";
 
 const gpus = getAllGpus();
+const providerCount = getAllProviders().length;
+
+// Computed once at build time (this is a static site, see formatRelativeTime's
+// doc comment) — every row's freshness label is "as of this deploy", not live.
+const buildTime = new Date();
 
 const rows: GpuTableRow[] = gpus
   .map((gpu) => {
@@ -31,6 +36,10 @@ const rows: GpuTableRow[] = gpus
       pricePerVramHr: best.price_per_vram_hr,
       providerCount: offers.length,
       rating: Math.max(...offers.map((o) => o.rating)),
+      // Only the winning offer's own freshness/stock — never borrowed from a
+      // different provider's row for the same GPU (see GpuFilterTable.tsx).
+      lastUpdatedLabel: best.last_updated ? formatRelativeTime(best.last_updated, buildTime) : null,
+      availableCount: best.available_count ?? null,
     };
     return row;
   })
@@ -39,7 +48,7 @@ const rows: GpuTableRow[] = gpus
 const meta = buildMeta({
   title: "Compare GPU Cloud Rental Prices — H100, A100, RTX 4090 & More",
   description:
-    "Live price comparison across RunPod, Vast.ai, Hyperstack, Paperspace, Novita AI and Thunder Compute. Filter by VRAM, task and price to find the cheapest GPU rental for LLM training, fine-tuning, ComfyUI and inference.",
+    "Live price comparison across RunPod, Vast.ai, Hyperstack, Paperspace, Novita AI, Thunder Compute, CloudRift, JarvisLabs and Hot Aisle. Filter by VRAM, task and price to find the cheapest GPU rental for LLM training, fine-tuning, ComfyUI and inference.",
   canonicalPath: "/",
 });
 ---
@@ -48,14 +57,15 @@ const meta = buildMeta({
   <section class="mx-auto max-w-7xl px-4 pb-8 pt-14 text-center sm:px-6 lg:px-8">
     <p class="mb-3 inline-flex items-center gap-2 rounded-full border border-surface-700 bg-surface-900 px-3 py-1 text-xs font-medium text-slate-400">
       <span class="h-1.5 w-1.5 rounded-full bg-neon-green"></span>
-      Tracking {rows.reduce((sum, r) => sum + r.providerCount, 0)} live offers across 6 providers
+      Tracking {rows.reduce((sum, r) => sum + r.providerCount, 0)} live offers across {providerCount} providers
     </p>
     <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
       Find the <span class="text-gradient-neon">cheapest GPU cloud</span> for your workload
     </h1>
     <p class="mx-auto mt-4 max-w-2xl text-base text-slate-400 sm:text-lg">
       Compare on-demand and spot pricing for H100, A100, RTX 4090 and more across RunPod,
-      Vast.ai, Hyperstack, Paperspace, Novita AI and Thunder Compute — including hidden storage and egress fees.
+      Vast.ai, Hyperstack, Paperspace, Novita AI, Thunder Compute, CloudRift, JarvisLabs and
+      Hot Aisle — including hidden storage and egress fees.
     </p>
   </section>
 

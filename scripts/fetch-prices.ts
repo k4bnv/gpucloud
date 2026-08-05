@@ -13,14 +13,27 @@
  *
  * Run directly: `npx tsx scripts/fetch-prices.ts`
  *
- * Deliberately dependency-free: uses Node's built-in `fetch` (Node >=18)
- * and `node:fs/promises` only, so it can't drift from whatever's installed
- * for the Astro site itself.
+ * Every fetcher here talks straight to Node's built-in `fetch` (Node >=18)
+ * against a provider's own first-party API — no npm dependency, so it
+ * can't drift from whatever's installed for the Astro site itself. The one
+ * exception is CloudRift/JarvisLabs (see section 3f), which are routed
+ * through `gpuhunt` (github.com/dstackai/gpuhunt, MPL-2.0) as a Python
+ * subprocess rather than a hand-written fetch call — that's a real external
+ * process dependency (Python 3 + `pip install -r scripts/gpuhunt/
+ * requirements.txt`), not an npm one; see README.md for why and
+ * scripts/gpuhunt/fetch_gpuhunt.py for the actual call. It degrades the
+ * same way every other fetcher does: no Python/gpuhunt available, or the
+ * subprocess errors out, keeps the existing committed prices rather than
+ * breaking the build.
  */
 
+import { execFile } from "node:child_process";
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
+import { promisify } from "node:util";
+
+const execFileAsync = promisify(execFile);
 
 // Relative imports only (no "@/..." alias) — this script runs standalone
 // under tsx, outside Astro's Vite config, so path aliases aren't resolved.
@@ -413,6 +426,103 @@ async function fetchStaticFallbackPrices(providerSlug: string): Promise<RawOffer
   return [];
 }
 
+// ---------------------------------------------------------------------------
+// 3f. CloudRift, JarvisLabs, Hot Aisle — routed through `gpuhunt`
+//     (github.com/dstackai/gpuhunt, MPL-2.0) rather than a hand-written
+//     fetch call. gpuhunt is a real open-source library that itself calls
+//     each provider's own first-party API (api.cloudrift.ai,
+//     backendn.jarvislabs.net, admin.hotaisle.app) — it is NOT a
+//     price-comparison aggregator like gpus.io/gputracker.dev, whose Terms
+//     of Service explicitly forbid exactly this kind of reuse (see
+//     README.md). We spawn it as a Python subprocess per provider instead
+//     of reimplementing each one's auth/parsing by hand in TS — see
+//     scripts/gpuhunt/fetch_gpuhunt.py.
+//
+//     Not every gpuhunt-supported provider belongs here, though: Vultr is
+//     also auth-free but was deliberately left out after checking its
+//     actual catalog — its GPU "offers" are either fractional vGPU slices
+//     (a 2-8GB sliver of an A16/A40, not the full card) or an 8-GPU-only
+//     bare-metal bundle with no single-GPU price, neither of which fits
+//     this schema's per-full-GPU hourly rate without fabricating a number.
+// ---------------------------------------------------------------------------
+
+const GPUHUNT_SCRIPT_PATH = path.join(ROOT, "scripts/gpuhunt/fetch_gpuhunt.py");
+
+interface GpuhuntItem {
+  gpu_name?: string;
+  gpu_count?: number;
+  price?: number;
+  spot?: boolean;
+}
+
+async function fetchViaGpuhunt(providerSlug: string, gpuhuntProviderName: string): Promise<RawOffer[]> {
+  const pythonBin = process.env.GPUHUNT_PYTHON_BIN || (process.platform === "win32" ? "python" : "python3");
+
+  let stdout: string;
+  try {
+    ({ stdout } = await execFileAsync(pythonBin, [GPUHUNT_SCRIPT_PATH, gpuhuntProviderName], {
+      timeout: FETCH_TIMEOUT_MS,
+    }));
+  } catch (err) {
+    console.warn(`[${providerSlug}] gpuhunt subprocess failed, keeping existing prices: ${errorMessage(err)}`);
+    return [];
+  }
+
+  let items: GpuhuntItem[];
+  try {
+    items = JSON.parse(stdout);
+  } catch {
+    console.warn(`[${providerSlug}] gpuhunt returned non-JSON output, keeping existing prices.`);
+    return [];
+  }
+
+  // Group by normalized GPU id, keep the cheapest single-GPU on-demand and
+  // cheapest single-GPU spot rate gpuhunt reported for it.
+  const byGpu = new Map<string, { onDemand: number | null; spot: number | null }>();
+  for (const item of items) {
+    if (item.gpu_count !== 1 || typeof item.price !== "number") continue; // per-GPU schema, multi-GPU bundles excluded
+    const gpuId = normalizeGpuName(item.gpu_name ?? "");
+    if (!gpuId) continue;
+
+    const bucket = byGpu.get(gpuId) ?? { onDemand: null, spot: null };
+    if (item.spot) {
+      bucket.spot = bucket.spot === null ? item.price : Math.min(bucket.spot, item.price);
+    } else {
+      bucket.onDemand = bucket.onDemand === null ? item.price : Math.min(bucket.onDemand, item.price);
+    }
+    byGpu.set(gpuId, bucket);
+  }
+
+  const offers: RawOffer[] = [];
+  for (const [gpuId, { onDemand, spot }] of byGpu) {
+    if (onDemand === null) continue; // our schema requires an on-demand rate; spot-only rows are dropped
+    offers.push({ providerSlug, gpuId, priceOnDemand: round2(onDemand), priceSpot: spot !== null ? round2(spot) : null });
+  }
+  return offers;
+}
+
+async function fetchCloudRiftPrices(): Promise<RawOffer[]> {
+  return fetchViaGpuhunt("cloudrift", "cloudrift");
+}
+
+async function fetchJarvisLabsPrices(): Promise<RawOffer[]> {
+  if (!process.env.JARVISLABS_API_KEY) {
+    console.info("[jarvislabs] JARVISLABS_API_KEY not set — skipping live fetch, keeping existing prices.");
+    return [];
+  }
+  return fetchViaGpuhunt("jarvislabs", "jarvislabs");
+}
+
+async function fetchHotAislePrices(): Promise<RawOffer[]> {
+  if (!process.env.HOTAISLE_API_KEY || !process.env.HOTAISLE_TEAM_HANDLE) {
+    console.info(
+      "[hotaisle] HOTAISLE_API_KEY / HOTAISLE_TEAM_HANDLE not set — skipping live fetch, keeping existing prices."
+    );
+    return [];
+  }
+  return fetchViaGpuhunt("hotaisle", "hotaisle");
+}
+
 function round2(value: number): number {
   return Math.round(value * 100) / 100;
 }
@@ -494,6 +604,9 @@ async function main(): Promise<void> {
     fetchRunPodPrices(),
     fetchHyperstackPrices(),
     fetchThunderComputePrices(),
+    fetchCloudRiftPrices(),
+    fetchJarvisLabsPrices(),
+    fetchHotAislePrices(),
     fetchStaticFallbackPrices("paperspace"),
     fetchStaticFallbackPrices("novita-ai"),
   ]);
@@ -536,7 +649,16 @@ async function main(): Promise<void> {
 // silently syncs live prices and overwrites src/data/*.json as a side
 // effect, which is exactly how this file got a stray "market" snapshot
 // committed once already.
-const isMainModule = process.argv[1] && import.meta.url === `file://${process.argv[1]}`;
+//
+// Must go through `pathToFileURL`, not a plain `file://${process.argv[1]}`
+// string concat: on Windows `process.argv[1]` is backslash-separated
+// ("C:\...\fetch-prices.ts") while `import.meta.url` is always a properly
+// escaped forward-slash file:// URL ("file:///C:/.../fetch-prices.ts") —
+// the naive concat never equals it, so this check silently evaluated to
+// false on every Windows run and `main()` never executed at all (sync-prices
+// looked like it ran — same log lines, exit code 0 — but every provider
+// fetcher and the JSON writes were skipped entirely).
+const isMainModule = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
 if (isMainModule) {
   main().catch((err) => {
     console.error("[fetch-prices] Fatal error:", err);
