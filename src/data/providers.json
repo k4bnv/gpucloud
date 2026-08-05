@@ -439,8 +439,8 @@
     "payment_model": "Marketplace",
     "cloud_type": "Community",
     "has_api_cli": true,
-    "last_updated": "2026-08-05T20:29:25.266Z",
-    "available_count": 1
+    "last_updated": "2026-08-05T20:34:22.016Z",
+    "available_count": 2
   },
   {
     "id": "vast-ai",
@@ -507,7 +507,7 @@
     "payment_model": "Marketplace",
     "cloud_type": "Community",
     "has_api_cli": true,
-    "last_updated": "2026-08-05T20:29:25.266Z",
+    "last_updated": "2026-08-05T20:34:22.016Z",
     "available_count": 1
   },
   {
@@ -583,8 +583,8 @@
     "logo_emoji": "🔷",
     "affiliate_url": "https://vast.ai/?ref=AFFILIATE_ID",
     "gpu_id": "nvidia-rtx-5090",
-    "price_on_demand": 0.14,
-    "price_spot": 0.13,
+    "price_on_demand": 0.21,
+    "price_spot": 0.12,
     "storage_cost_per_gb": 0.08,
     "egress_cost_per_gb": 0,
     "rating": 4.5,
@@ -597,8 +597,8 @@
     "payment_model": "Marketplace",
     "cloud_type": "Community",
     "has_api_cli": true,
-    "last_updated": "2026-08-05T20:29:25.266Z",
-    "available_count": 4
+    "last_updated": "2026-08-05T20:34:22.016Z",
+    "available_count": 5
   },
   {
     "id": "vast-ai",
@@ -1126,7 +1126,7 @@
     "payment_model": "Marketplace",
     "cloud_type": "Community",
     "has_api_cli": true,
-    "last_updated": "2026-08-05T20:29:25.266Z",
+    "last_updated": "2026-08-05T20:34:22.016Z",
     "available_count": 1
   },
   {
@@ -1136,8 +1136,8 @@
     "logo_emoji": "🔷",
     "affiliate_url": "https://vast.ai/?ref=AFFILIATE_ID",
     "gpu_id": "nvidia-rtx-pro-6000",
-    "price_on_demand": 1.03,
-    "price_spot": 0.8,
+    "price_on_demand": 1.37,
+    "price_spot": 1.09,
     "storage_cost_per_gb": 0.08,
     "egress_cost_per_gb": 0,
     "rating": 4.5,
@@ -1150,8 +1150,8 @@
     "payment_model": "Marketplace",
     "cloud_type": "Community",
     "has_api_cli": true,
-    "last_updated": "2026-08-05T20:29:03.984Z",
-    "available_count": 2
+    "last_updated": "2026-08-05T20:34:22.016Z",
+    "available_count": 1
   },
   {
     "id": "vast-ai",
@@ -1161,7 +1161,7 @@
     "affiliate_url": "https://vast.ai/?ref=AFFILIATE_ID",
     "gpu_id": "nvidia-rtx-pro-4500",
     "price_on_demand": 0.34,
-    "price_spot": 0.19,
+    "price_spot": 0.23,
     "storage_cost_per_gb": 0.08,
     "egress_cost_per_gb": 0,
     "rating": 4.5,
@@ -1173,7 +1173,9 @@
     "interruption_risk": "High",
     "payment_model": "Marketplace",
     "cloud_type": "Community",
-    "has_api_cli": true
+    "has_api_cli": true,
+    "last_updated": "2026-08-05T20:34:22.016Z",
+    "available_count": 1
   },
   {
     "id": "vast-ai",
@@ -1195,6 +1197,103 @@
     "interruption_risk": "High",
     "payment_model": "Marketplace",
     "cloud_type": "Community",
+    "has_api_cli": true
+  },
+  {
+    "id": "runpod",
+    "name": "RunPod",
+    "slug": "runpod",
+    "logo_emoji": "🟢",
+    "affiliate_url": "https://runpod.io/?ref=AFFILIATE_ID",
+    "gpu_id": "nvidia-rtx-pro-6000",
+    "price_on_demand": 1.99,
+    "price_spot": null,
+    "storage_cost_per_gb": 0.1,
+    "egress_cost_per_gb": 0.05,
+    "rating": 4.8,
+    "review_count": 1240,
+    "regions": [
+      "US-CA",
+      "US-TX",
+      "EU-NL",
+      "EU-SE"
+    ],
+    "min_billing_increment": "per second",
+    "interruption_risk": "Medium",
+    "payment_model": "Marketplace",
+    "cloud_type": "Secure",
+    "has_api_cli": true
+  },
+  {
+    "id": "runpod",
+    "name": "RunPod",
+    "slug": "runpod",
+    "logo_emoji": "🟢",
+    "affiliate_url": "https://runpod.io/?ref=AFFILIATE_ID",
+    "gpu_id": "nvidia-rtx-pro-4500",
+    "price_on_demand": 1.15,
+    "price_spot": null,
+    "storage_cost_per_gb": 0.1,
+    "egress_cost_per_gb": 0.05,
+    "rating": 4.8,
+    "review_count": 1240,
+    "regions": [
+      "US-CA",
+      "US-TX",
+      "EU-NL",
+      "EU-SE"
+    ],
+    "min_billing_increment": "per second",
+    "interruption_risk": "Medium",
+    "payment_model": "Marketplace",
+    "cloud_type": "Secure",
+    "has_api_cli": true
+  },
+  {
+    "id": "hyperstack",
+    "name": "Hyperstack",
+    "slug": "hyperstack",
+    "logo_emoji": "🟠",
+    "affiliate_url": "https://console.hyperstack.cloud/?ref=AFFILIATE_ID",
+    "gpu_id": "nvidia-rtx-pro-6000",
+    "price_on_demand": 1.85,
+    "price_spot": null,
+    "storage_cost_per_gb": 0.1,
+    "egress_cost_per_gb": 0,
+    "rating": 4.5,
+    "review_count": 180,
+    "regions": [
+      "US",
+      "EU",
+      "Canada"
+    ],
+    "min_billing_increment": "per hour",
+    "interruption_risk": "None",
+    "payment_model": "On-Demand Cloud",
+    "cloud_type": "Secure",
+    "has_api_cli": true
+  },
+  {
+    "id": "jarvislabs",
+    "name": "JarvisLabs",
+    "slug": "jarvislabs",
+    "logo_emoji": "🧠",
+    "affiliate_url": "https://jarvislabs.ai/?ref=AFFILIATE_ID",
+    "gpu_id": "nvidia-rtx-pro-6000",
+    "price_on_demand": 1.89,
+    "price_spot": null,
+    "storage_cost_per_gb": 0.1,
+    "egress_cost_per_gb": 0,
+    "rating": 4.3,
+    "review_count": 45,
+    "regions": [
+      "IN",
+      "EU"
+    ],
+    "min_billing_increment": "per minute",
+    "interruption_risk": "None",
+    "payment_model": "On-Demand Cloud",
+    "cloud_type": "Secure",
     "has_api_cli": true
   }
 ]

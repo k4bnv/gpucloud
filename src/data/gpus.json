@@ -28,7 +28,7 @@
       "min_on_demand_price": 6.49,
       "min_spot_price": 4.99,
       "available_count": null,
-      "last_updated": "2026-08-05T20:29:25.266Z"
+      "last_updated": "2026-08-05T20:34:22.016Z"
     }
   },
   {
@@ -63,7 +63,7 @@
       "min_on_demand_price": 3.29,
       "min_spot_price": 2.19,
       "available_count": null,
-      "last_updated": "2026-08-05T20:29:25.266Z"
+      "last_updated": "2026-08-05T20:34:22.016Z"
     }
   },
   {
@@ -98,7 +98,7 @@
       "min_on_demand_price": 1.95,
       "min_spot_price": 1.65,
       "available_count": null,
-      "last_updated": "2026-08-05T20:29:25.266Z"
+      "last_updated": "2026-08-05T20:34:22.016Z"
     }
   },
   {
@@ -130,7 +130,7 @@
       "min_on_demand_price": 2.69,
       "min_spot_price": null,
       "available_count": null,
-      "last_updated": "2026-08-05T20:29:25.266Z"
+      "last_updated": "2026-08-05T20:34:22.016Z"
     }
   },
   {
@@ -164,7 +164,7 @@
       "min_on_demand_price": 1.1,
       "min_spot_price": 0.89,
       "available_count": null,
-      "last_updated": "2026-08-05T20:29:25.266Z"
+      "last_updated": "2026-08-05T20:34:22.016Z"
     }
   },
   {
@@ -199,7 +199,7 @@
       "min_on_demand_price": 0.65,
       "min_spot_price": 0.42,
       "available_count": null,
-      "last_updated": "2026-08-05T20:29:25.266Z"
+      "last_updated": "2026-08-05T20:34:22.016Z"
     }
   },
   {
@@ -234,7 +234,7 @@
       "min_on_demand_price": 0.55,
       "min_spot_price": 0.79,
       "available_count": null,
-      "last_updated": "2026-08-05T20:29:25.266Z"
+      "last_updated": "2026-08-05T20:34:22.016Z"
     }
   },
   {
@@ -268,7 +268,7 @@
       "min_on_demand_price": 0.35,
       "min_spot_price": 0.22,
       "available_count": null,
-      "last_updated": "2026-08-05T20:29:25.266Z"
+      "last_updated": "2026-08-05T20:34:22.016Z"
     }
   },
   {
@@ -300,10 +300,10 @@
       "Still early in cloud rollout, so supply/pricing is less stable than RTX 4090"
     ],
     "market": {
-      "min_on_demand_price": 0.14,
-      "min_spot_price": 0.13,
-      "available_count": 4,
-      "last_updated": "2026-08-05T20:29:25.266Z"
+      "min_on_demand_price": 0.21,
+      "min_spot_price": 0.12,
+      "available_count": 5,
+      "last_updated": "2026-08-05T20:34:22.016Z"
     }
   },
   {
@@ -336,8 +336,8 @@
     "market": {
       "min_on_demand_price": 0.14,
       "min_spot_price": 0.13,
-      "available_count": 1,
-      "last_updated": "2026-08-05T20:29:25.266Z"
+      "available_count": 2,
+      "last_updated": "2026-08-05T20:34:22.016Z"
     }
   },
   {
@@ -371,7 +371,7 @@
       "min_on_demand_price": 0.35,
       "min_spot_price": 0.49,
       "available_count": null,
-      "last_updated": "2026-08-05T20:29:25.266Z"
+      "last_updated": "2026-08-05T20:34:22.016Z"
     }
   },
   {
@@ -405,7 +405,7 @@
       "min_on_demand_price": 0.22,
       "min_spot_price": 0.14,
       "available_count": null,
-      "last_updated": "2026-08-05T20:29:25.266Z"
+      "last_updated": "2026-08-05T20:34:22.016Z"
     }
   },
   {
@@ -439,7 +439,7 @@
       "min_on_demand_price": 0.35,
       "min_spot_price": 0.22,
       "available_count": null,
-      "last_updated": "2026-08-05T20:29:25.266Z"
+      "last_updated": "2026-08-05T20:34:22.016Z"
     }
   },
   {
@@ -473,7 +473,7 @@
       "min_on_demand_price": 0.24,
       "min_spot_price": 0.15,
       "available_count": null,
-      "last_updated": "2026-08-05T20:29:25.266Z"
+      "last_updated": "2026-08-05T20:34:22.016Z"
     }
   },
   {
@@ -508,7 +508,7 @@
       "min_on_demand_price": 0.04,
       "min_spot_price": 0.03,
       "available_count": 1,
-      "last_updated": "2026-08-05T20:29:25.266Z"
+      "last_updated": "2026-08-05T20:34:22.016Z"
     }
   },
   {
@@ -541,7 +541,7 @@
       "min_on_demand_price": 0.15,
       "min_spot_price": 0.1,
       "available_count": null,
-      "last_updated": "2026-08-05T20:29:25.266Z"
+      "last_updated": "2026-08-05T20:34:22.016Z"
     }
   },
   {
@@ -576,7 +576,7 @@
       "min_on_demand_price": 0.18,
       "min_spot_price": 0.16,
       "available_count": 1,
-      "last_updated": "2026-08-05T20:29:25.266Z"
+      "last_updated": "2026-08-05T20:34:22.016Z"
     }
   },
   {
@@ -611,7 +611,7 @@
       "min_on_demand_price": 0.1,
       "min_spot_price": 0.1,
       "available_count": null,
-      "last_updated": "2026-08-05T20:29:25.266Z"
+      "last_updated": "2026-08-05T20:34:22.016Z"
     }
   },
   {
@@ -645,7 +645,7 @@
       "min_on_demand_price": 0.08,
       "min_spot_price": 0.07,
       "available_count": null,
-      "last_updated": "2026-08-05T20:29:25.266Z"
+      "last_updated": "2026-08-05T20:34:22.016Z"
     }
   },
   {
@@ -679,7 +679,7 @@
       "min_on_demand_price": 0.07,
       "min_spot_price": 0.07,
       "available_count": null,
-      "last_updated": "2026-08-05T20:29:25.266Z"
+      "last_updated": "2026-08-05T20:34:22.016Z"
     }
   },
   {
@@ -714,7 +714,7 @@
       "min_on_demand_price": 0.09,
       "min_spot_price": 0.08,
       "available_count": null,
-      "last_updated": "2026-08-05T20:29:25.266Z"
+      "last_updated": "2026-08-05T20:34:22.016Z"
     }
   },
   {
@@ -748,7 +748,7 @@
       "min_on_demand_price": 0.07,
       "min_spot_price": 0.07,
       "available_count": 1,
-      "last_updated": "2026-08-05T20:29:25.266Z"
+      "last_updated": "2026-08-05T20:34:22.016Z"
     }
   },
   {
@@ -781,10 +781,10 @@
       "ECC GDDR7 and certified drivers for professional rendering/AI pipelines"
     ],
     "market": {
-      "min_on_demand_price": 1.03,
-      "min_spot_price": 0.8,
-      "available_count": 2,
-      "last_updated": "2026-08-05T20:29:25.266Z"
+      "min_on_demand_price": 1.37,
+      "min_spot_price": 1.09,
+      "available_count": 1,
+      "last_updated": "2026-08-05T20:34:22.016Z"
     }
   },
   {
@@ -817,9 +817,9 @@
     ],
     "market": {
       "min_on_demand_price": 0.34,
-      "min_spot_price": 0.19,
-      "available_count": null,
-      "last_updated": "2026-08-05T20:29:25.266Z"
+      "min_spot_price": 0.23,
+      "available_count": 1,
+      "last_updated": "2026-08-05T20:34:22.016Z"
     }
   },
   {
@@ -854,7 +854,7 @@
       "min_on_demand_price": 0.14,
       "min_spot_price": 0.07,
       "available_count": null,
-      "last_updated": "2026-08-05T20:29:25.266Z"
+      "last_updated": "2026-08-05T20:34:22.016Z"
     }
   }
 ]
