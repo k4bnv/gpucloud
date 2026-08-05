@@ -28,7 +28,7 @@
       "min_on_demand_price": 6.49,
       "min_spot_price": 4.99,
       "available_count": null,
-      "last_updated": "2026-08-05T20:15:39.359Z"
+      "last_updated": "2026-08-05T20:29:25.266Z"
     }
   },
   {
@@ -63,7 +63,7 @@
       "min_on_demand_price": 3.29,
       "min_spot_price": 2.19,
       "available_count": null,
-      "last_updated": "2026-08-05T20:15:39.359Z"
+      "last_updated": "2026-08-05T20:29:25.266Z"
     }
   },
   {
@@ -98,7 +98,7 @@
       "min_on_demand_price": 1.95,
       "min_spot_price": 1.65,
       "available_count": null,
-      "last_updated": "2026-08-05T20:15:39.359Z"
+      "last_updated": "2026-08-05T20:29:25.266Z"
     }
   },
   {
@@ -130,7 +130,7 @@
       "min_on_demand_price": 2.69,
       "min_spot_price": null,
       "available_count": null,
-      "last_updated": "2026-08-05T20:15:39.359Z"
+      "last_updated": "2026-08-05T20:29:25.266Z"
     }
   },
   {
@@ -164,7 +164,7 @@
       "min_on_demand_price": 1.1,
       "min_spot_price": 0.89,
       "available_count": null,
-      "last_updated": "2026-08-05T20:15:39.359Z"
+      "last_updated": "2026-08-05T20:29:25.266Z"
     }
   },
   {
@@ -199,7 +199,7 @@
       "min_on_demand_price": 0.65,
       "min_spot_price": 0.42,
       "available_count": null,
-      "last_updated": "2026-08-05T20:15:39.359Z"
+      "last_updated": "2026-08-05T20:29:25.266Z"
     }
   },
   {
@@ -234,7 +234,7 @@
       "min_on_demand_price": 0.55,
       "min_spot_price": 0.79,
       "available_count": null,
-      "last_updated": "2026-08-05T20:15:39.359Z"
+      "last_updated": "2026-08-05T20:29:25.266Z"
     }
   },
   {
@@ -268,7 +268,7 @@
       "min_on_demand_price": 0.35,
       "min_spot_price": 0.22,
       "available_count": null,
-      "last_updated": "2026-08-05T20:15:39.359Z"
+      "last_updated": "2026-08-05T20:29:25.266Z"
     }
   },
   {
@@ -300,10 +300,10 @@
       "Still early in cloud rollout, so supply/pricing is less stable than RTX 4090"
     ],
     "market": {
-      "min_on_demand_price": 0.31,
-      "min_spot_price": 0.3,
-      "available_count": 5,
-      "last_updated": "2026-08-05T20:15:39.359Z"
+      "min_on_demand_price": 0.14,
+      "min_spot_price": 0.13,
+      "available_count": 4,
+      "last_updated": "2026-08-05T20:29:25.266Z"
     }
   },
   {
@@ -337,7 +337,7 @@
       "min_on_demand_price": 0.14,
       "min_spot_price": 0.13,
       "available_count": 1,
-      "last_updated": "2026-08-05T20:15:39.359Z"
+      "last_updated": "2026-08-05T20:29:25.266Z"
     }
   },
   {
@@ -371,7 +371,7 @@
       "min_on_demand_price": 0.35,
       "min_spot_price": 0.49,
       "available_count": null,
-      "last_updated": "2026-08-05T20:15:39.359Z"
+      "last_updated": "2026-08-05T20:29:25.266Z"
     }
   },
   {
@@ -405,7 +405,7 @@
       "min_on_demand_price": 0.22,
       "min_spot_price": 0.14,
       "available_count": null,
-      "last_updated": "2026-08-05T20:15:39.359Z"
+      "last_updated": "2026-08-05T20:29:25.266Z"
     }
   },
   {
@@ -439,7 +439,7 @@
       "min_on_demand_price": 0.35,
       "min_spot_price": 0.22,
       "available_count": null,
-      "last_updated": "2026-08-05T20:15:39.359Z"
+      "last_updated": "2026-08-05T20:29:25.266Z"
     }
   },
   {
@@ -473,7 +473,7 @@
       "min_on_demand_price": 0.24,
       "min_spot_price": 0.15,
       "available_count": null,
-      "last_updated": "2026-08-05T20:15:39.359Z"
+      "last_updated": "2026-08-05T20:29:25.266Z"
     }
   },
   {
@@ -508,7 +508,7 @@
       "min_on_demand_price": 0.04,
       "min_spot_price": 0.03,
       "available_count": 1,
-      "last_updated": "2026-08-05T20:15:39.359Z"
+      "last_updated": "2026-08-05T20:29:25.266Z"
     }
   },
   {
@@ -541,7 +541,320 @@
       "min_on_demand_price": 0.15,
       "min_spot_price": 0.1,
       "available_count": null,
-      "last_updated": "2026-08-05T20:15:39.359Z"
+      "last_updated": "2026-08-05T20:29:25.266Z"
+    }
+  },
+  {
+    "id": "nvidia-rtx-5080",
+    "name": "NVIDIA RTX 5080",
+    "vendor": "NVIDIA",
+    "vram_gb": 16,
+    "vram_type": "GDDR7",
+    "architecture": "Blackwell",
+    "tdp_watts": 360,
+    "interface": "PCIe 5.0",
+    "cuda_cores": 10752,
+    "tensor_cores": 336,
+    "fp16_tflops": 225,
+    "fp8_tflops": 450,
+    "memory_bandwidth_gbps": 960,
+    "nvlink": false,
+    "release_year": 2025,
+    "target_tasks": [
+      "ComfyUI / Stable Diffusion",
+      "AI Inference",
+      "3D Rendering",
+      "Video Editing"
+    ],
+    "description": "The RTX 5080 is NVIDIA's current-gen Blackwell consumer flagship-adjacent card — GDDR7 bandwidth and 5th-gen tensor cores at a 16GB capacity aimed at image generation and single-model inference rather than large-batch training.",
+    "highlights": [
+      "GDDR7 bandwidth (960 GB/s) beats the previous-gen RTX 4090 despite less VRAM",
+      "5th-gen tensor cores with native FP8 support for faster SDXL/Flux inference",
+      "Newest architecture available on marketplace clouds at consumer pricing"
+    ],
+    "market": {
+      "min_on_demand_price": 0.18,
+      "min_spot_price": 0.16,
+      "available_count": 1,
+      "last_updated": "2026-08-05T20:29:25.266Z"
+    }
+  },
+  {
+    "id": "nvidia-rtx-5070-ti",
+    "name": "NVIDIA RTX 5070 Ti",
+    "vendor": "NVIDIA",
+    "vram_gb": 16,
+    "vram_type": "GDDR7",
+    "architecture": "Blackwell",
+    "tdp_watts": 300,
+    "interface": "PCIe 5.0",
+    "cuda_cores": 8960,
+    "tensor_cores": 280,
+    "fp16_tflops": 175,
+    "fp8_tflops": 350,
+    "memory_bandwidth_gbps": 896,
+    "nvlink": false,
+    "release_year": 2025,
+    "target_tasks": [
+      "ComfyUI / Stable Diffusion",
+      "AI Inference",
+      "3D Rendering",
+      "Video Editing"
+    ],
+    "description": "The RTX 5070 Ti sits between the 5070 and 5080 — the same 16GB as the 5080 at a lower entry price, making it a strong $/GB-VRAM pick for anyone who doesn't need the 5080's extra shader throughput.",
+    "highlights": [
+      "Same 16GB VRAM as the RTX 5080 at a noticeably lower hourly rate",
+      "GDDR7 bandwidth handles SDXL/Flux batches comfortably",
+      "Good middle ground between the 5070 and 5080 on this site's $/GB VRAM metric"
+    ],
+    "market": {
+      "min_on_demand_price": 0.1,
+      "min_spot_price": 0.1,
+      "available_count": null,
+      "last_updated": "2026-08-05T20:29:25.266Z"
+    }
+  },
+  {
+    "id": "nvidia-rtx-5070",
+    "name": "NVIDIA RTX 5070",
+    "vendor": "NVIDIA",
+    "vram_gb": 12,
+    "vram_type": "GDDR7",
+    "architecture": "Blackwell",
+    "tdp_watts": 250,
+    "interface": "PCIe 5.0",
+    "cuda_cores": 6144,
+    "tensor_cores": 192,
+    "fp16_tflops": 124,
+    "fp8_tflops": 248,
+    "memory_bandwidth_gbps": 672,
+    "nvlink": false,
+    "release_year": 2025,
+    "target_tasks": [
+      "ComfyUI / Stable Diffusion",
+      "AI Inference",
+      "Video Editing"
+    ],
+    "description": "The RTX 5070 is the budget entry point into Blackwell — 12GB is tight for anything beyond SDXL-class image generation and small quantized models, but it's the cheapest current-gen card on this site.",
+    "highlights": [
+      "Cheapest Blackwell-generation card we track",
+      "12GB VRAM covers SDXL and small quantized (7B-class) inference",
+      "5th-gen tensor cores bring native FP8 to a budget price point"
+    ],
+    "market": {
+      "min_on_demand_price": 0.08,
+      "min_spot_price": 0.07,
+      "available_count": null,
+      "last_updated": "2026-08-05T20:29:25.266Z"
+    }
+  },
+  {
+    "id": "nvidia-rtx-5060-ti",
+    "name": "NVIDIA RTX 5060 Ti",
+    "vendor": "NVIDIA",
+    "vram_gb": 16,
+    "vram_type": "GDDR7",
+    "architecture": "Blackwell",
+    "tdp_watts": 180,
+    "interface": "PCIe 5.0",
+    "cuda_cores": 4608,
+    "tensor_cores": 144,
+    "fp16_tflops": 94,
+    "fp8_tflops": 188,
+    "memory_bandwidth_gbps": 448,
+    "nvlink": false,
+    "release_year": 2025,
+    "target_tasks": [
+      "ComfyUI / Stable Diffusion",
+      "AI Inference",
+      "Video Editing"
+    ],
+    "description": "The RTX 5060 Ti pairs a 16GB frame buffer — unusually generous for its tier — with low 180W power draw, making it a cheap way to get more VRAM headroom than the 5070 without moving up to the 5070 Ti's price.",
+    "highlights": [
+      "16GB VRAM at a lower price than any other 16GB card on this site",
+      "180W TDP keeps power/hosting costs down for always-on inference",
+      "Good fit for quantized 13B-class models that need more headroom than 12GB"
+    ],
+    "market": {
+      "min_on_demand_price": 0.07,
+      "min_spot_price": 0.07,
+      "available_count": null,
+      "last_updated": "2026-08-05T20:29:25.266Z"
+    }
+  },
+  {
+    "id": "nvidia-rtx-4080-super",
+    "name": "NVIDIA RTX 4080 Super",
+    "vendor": "NVIDIA",
+    "vram_gb": 16,
+    "vram_type": "GDDR6X",
+    "architecture": "Ada Lovelace",
+    "tdp_watts": 320,
+    "interface": "PCIe 4.0",
+    "cuda_cores": 10240,
+    "tensor_cores": 320,
+    "fp16_tflops": 209,
+    "fp8_tflops": 418,
+    "memory_bandwidth_gbps": 736,
+    "nvlink": false,
+    "release_year": 2024,
+    "target_tasks": [
+      "ComfyUI / Stable Diffusion",
+      "AI Inference",
+      "3D Rendering",
+      "Video Editing"
+    ],
+    "description": "The RTX 4080 Super is a mid-cycle refresh of the 4080 — same 16GB Ada Lovelace card, slightly higher clocks, now priced closer to marketplace-cloud rates than its launch MSRP.",
+    "highlights": [
+      "Previous-gen Ada Lovelace card with mature driver/software support",
+      "16GB VRAM handles SDXL and mid-size quantized inference comfortably",
+      "Widely available on peer-to-peer marketplace clouds at low hourly rates"
+    ],
+    "market": {
+      "min_on_demand_price": 0.09,
+      "min_spot_price": 0.08,
+      "available_count": null,
+      "last_updated": "2026-08-05T20:29:25.266Z"
+    }
+  },
+  {
+    "id": "nvidia-rtx-4070-ti-super",
+    "name": "NVIDIA RTX 4070 Ti Super",
+    "vendor": "NVIDIA",
+    "vram_gb": 16,
+    "vram_type": "GDDR6X",
+    "architecture": "Ada Lovelace",
+    "tdp_watts": 285,
+    "interface": "PCIe 4.0",
+    "cuda_cores": 8448,
+    "tensor_cores": 264,
+    "fp16_tflops": 176,
+    "fp8_tflops": 352,
+    "memory_bandwidth_gbps": 672,
+    "nvlink": false,
+    "release_year": 2024,
+    "target_tasks": [
+      "ComfyUI / Stable Diffusion",
+      "AI Inference",
+      "Video Editing"
+    ],
+    "description": "The RTX 4070 Ti Super brings the 16GB frame buffer of the higher-tier Ada cards down to a cheaper price point — a solid budget choice when 12GB isn't enough headroom but a 4080/5080 isn't worth the premium.",
+    "highlights": [
+      "16GB VRAM at one of the lowest prices for that capacity on this site",
+      "Mature Ada Lovelace architecture with broad framework/driver support",
+      "Good value pick for SDXL and 13B-class quantized inference"
+    ],
+    "market": {
+      "min_on_demand_price": 0.07,
+      "min_spot_price": 0.07,
+      "available_count": 1,
+      "last_updated": "2026-08-05T20:29:25.266Z"
+    }
+  },
+  {
+    "id": "nvidia-rtx-pro-6000",
+    "name": "NVIDIA RTX PRO 6000",
+    "vendor": "NVIDIA",
+    "vram_gb": 96,
+    "vram_type": "GDDR7",
+    "architecture": "Blackwell",
+    "tdp_watts": 600,
+    "interface": "PCIe 5.0",
+    "cuda_cores": 24064,
+    "tensor_cores": 752,
+    "fp16_tflops": 503,
+    "fp8_tflops": 1006,
+    "memory_bandwidth_gbps": 1792,
+    "nvlink": false,
+    "release_year": 2025,
+    "target_tasks": [
+      "LLM Inference",
+      "3D Rendering",
+      "AI Inference",
+      "ComfyUI / Stable Diffusion",
+      "Computer Vision"
+    ],
+    "description": "The RTX PRO 6000 Blackwell is NVIDIA's new workstation flagship — 96GB of GDDR7 (double the previous-gen RTX 6000 Ada) is enough to run genuinely large quantized LLMs or heavy multi-GPU-free rendering/inference jobs on a single card.",
+    "highlights": [
+      "96GB VRAM — double the RTX 6000 Ada, without moving to data-center pricing",
+      "5th-gen tensor cores with FP8 support for fast large-model inference",
+      "ECC GDDR7 and certified drivers for professional rendering/AI pipelines"
+    ],
+    "market": {
+      "min_on_demand_price": 1.03,
+      "min_spot_price": 0.8,
+      "available_count": 2,
+      "last_updated": "2026-08-05T20:29:25.266Z"
+    }
+  },
+  {
+    "id": "nvidia-rtx-pro-4500",
+    "name": "NVIDIA RTX PRO 4500",
+    "vendor": "NVIDIA",
+    "vram_gb": 32,
+    "vram_type": "GDDR7",
+    "architecture": "Blackwell",
+    "tdp_watts": 200,
+    "interface": "PCIe 5.0",
+    "cuda_cores": 7680,
+    "tensor_cores": 240,
+    "fp16_tflops": 160,
+    "fp8_tflops": 320,
+    "memory_bandwidth_gbps": 576,
+    "nvlink": false,
+    "release_year": 2025,
+    "target_tasks": [
+      "3D Rendering",
+      "AI Inference",
+      "ComfyUI / Stable Diffusion",
+      "Computer Vision"
+    ],
+    "description": "The RTX PRO 4500 is a mid-range Blackwell workstation card — 32GB of ECC GDDR7 for rendering and inference workloads that outgrow consumer cards but don't need the RTX PRO 6000's full 96GB.",
+    "highlights": [
+      "32GB ECC VRAM at a fraction of RTX PRO 6000 pricing",
+      "Certified drivers for professional CAD/DCC pipelines",
+      "Good middle ground for mid-size model inference and rendering"
+    ],
+    "market": {
+      "min_on_demand_price": 0.34,
+      "min_spot_price": 0.19,
+      "available_count": null,
+      "last_updated": "2026-08-05T20:29:25.266Z"
+    }
+  },
+  {
+    "id": "nvidia-rtx-pro-4000",
+    "name": "NVIDIA RTX PRO 4000",
+    "vendor": "NVIDIA",
+    "vram_gb": 24,
+    "vram_type": "GDDR7",
+    "architecture": "Blackwell",
+    "tdp_watts": 140,
+    "interface": "PCIe 5.0",
+    "cuda_cores": 6144,
+    "tensor_cores": 192,
+    "fp16_tflops": 130,
+    "fp8_tflops": 260,
+    "memory_bandwidth_gbps": 432,
+    "nvlink": false,
+    "release_year": 2025,
+    "target_tasks": [
+      "3D Rendering",
+      "AI Inference",
+      "ComfyUI / Stable Diffusion",
+      "Computer Vision"
+    ],
+    "description": "The RTX PRO 4000 is the small-form-factor entry point into Blackwell's workstation line — 24GB of ECC GDDR7 at just 140W, built for dense workstation/rack deployment rather than raw throughput.",
+    "highlights": [
+      "140W TDP — the lowest power draw of any workstation-class card on this site",
+      "24GB ECC VRAM with certified professional drivers",
+      "Single-slot-friendly form factor for dense deployment"
+    ],
+    "market": {
+      "min_on_demand_price": 0.14,
+      "min_spot_price": 0.07,
+      "available_count": null,
+      "last_updated": "2026-08-05T20:29:25.266Z"
     }
   }
 ]

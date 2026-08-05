@@ -69,12 +69,30 @@ const FETCH_TIMEOUT_MS = 15_000;
  * different card we don't track — not the same as L40S) contains "l4" as
  * a plain substring and would otherwise misclassify as an L4 offer no
  * matter where l4's pattern sits in this list.
+ *
+ * Same trap, more entries: "rtx 5070" is a substring of "rtx 5070 ti" (a
+ * different, real card), so nvidia-rtx-5070-ti must be checked before
+ * nvidia-rtx-5070. And deliberately no bare "4000"/"4500" pattern for the
+ * RTX PRO 4000/4500 (Blackwell) entries below — NVIDIA's *previous*
+ * generation workstation cards are literally named "RTX 4000 Ada
+ * Generation" / "RTX 4500 Ada Generation", a different real product we
+ * don't track; only match on the "pro"-qualified form so a future
+ * Ada-workstation offer can't get misfiled as a Blackwell one.
  */
 const GPU_NAME_PATTERNS: Array<{ id: string; patterns: string[] }> = [
   { id: "nvidia-rtx-6000-ada", patterns: ["rtx 6000 ada", "6000 ada"] },
+  { id: "nvidia-rtx-pro-6000", patterns: ["rtx pro 6000", "pro 6000"] },
   { id: "nvidia-rtx-a6000", patterns: ["rtx a6000", "a6000"] },
+  { id: "nvidia-rtx-pro-4500", patterns: ["rtx pro 4500", "pro 4500"] },
+  { id: "nvidia-rtx-pro-4000", patterns: ["rtx pro 4000", "pro 4000"] },
   { id: "nvidia-l40s", patterns: ["l40s", "l40 s"] },
   { id: "nvidia-l4", patterns: ["l4"] },
+  { id: "nvidia-rtx-5070-ti", patterns: ["rtx 5070 ti", "5070 ti"] },
+  { id: "nvidia-rtx-5070", patterns: ["rtx 5070", "5070"] },
+  { id: "nvidia-rtx-5080", patterns: ["rtx 5080", "5080"] },
+  { id: "nvidia-rtx-5060-ti", patterns: ["rtx 5060 ti", "5060 ti"] },
+  { id: "nvidia-rtx-4070-ti-super", patterns: ["rtx 4070 ti super", "4070 ti super", "4070s ti"] },
+  { id: "nvidia-rtx-4080-super", patterns: ["rtx 4080 super", "4080 super", "4080s"] },
   { id: "nvidia-rtx-5090", patterns: ["rtx 5090", "5090"] },
   { id: "nvidia-rtx-4090", patterns: ["rtx 4090", "4090"] },
   { id: "nvidia-rtx-3090", patterns: ["rtx 3090", "3090"] },
