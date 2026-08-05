@@ -23,7 +23,13 @@
       "Highest raw training throughput of any card we track — built for trillion-parameter-class models",
       "192GB HBM3e means far less model/pipeline sharding than H100 or H200 pods",
       "Limited early supply keeps prices premium versus Hopper-generation cards"
-    ]
+    ],
+    "market": {
+      "min_on_demand_price": 6.49,
+      "min_spot_price": 4.99,
+      "available_count": null,
+      "last_updated": "2026-08-05T14:23:41.364Z"
+    }
   },
   {
     "id": "nvidia-h200",
@@ -52,7 +58,13 @@
       "76% more VRAM and 43% more bandwidth than H100 at the same compute",
       "Drop-in upgrade path from H100 — same Hopper transformer engine and software stack",
       "Serves larger context windows / batch sizes per GPU for LLM inference"
-    ]
+    ],
+    "market": {
+      "min_on_demand_price": 3.29,
+      "min_spot_price": 2.19,
+      "available_count": null,
+      "last_updated": "2026-08-05T14:23:41.364Z"
+    }
   },
   {
     "id": "nvidia-h100",
@@ -81,7 +93,13 @@
       "Fastest option for multi-billion parameter model training",
       "FP8 transformer engine roughly doubles throughput vs A100",
       "NVLink/NVSwitch scales cleanly to 8x pods for distributed training"
-    ]
+    ],
+    "market": {
+      "min_on_demand_price": 2.49,
+      "min_spot_price": 1.65,
+      "available_count": null,
+      "last_updated": "2026-08-05T14:23:41.364Z"
+    }
   },
   {
     "id": "amd-mi300x",
@@ -107,7 +125,13 @@
       "192GB VRAM rivals B200/MI300X-class cards at typically lower $/hr than Hopper",
       "Best fit for teams already validated on ROCm/ONNX Runtime rather than pure CUDA",
       "Fewer providers carry it, so availability is more limited than NVIDIA options"
-    ]
+    ],
+    "market": {
+      "min_on_demand_price": 2.69,
+      "min_spot_price": null,
+      "available_count": null,
+      "last_updated": "2026-08-05T14:23:41.364Z"
+    }
   },
   {
     "id": "nvidia-a100",
@@ -135,7 +159,13 @@
       "Best availability-to-price ratio for 7B-70B parameter fine-tuning",
       "80GB VRAM fits most LLM fine-tuning jobs without sharding",
       "Mature software stack, zero compatibility surprises"
-    ]
+    ],
+    "market": {
+      "min_on_demand_price": 1.35,
+      "min_spot_price": 0.89,
+      "available_count": null,
+      "last_updated": "2026-08-05T14:23:41.364Z"
+    }
   },
   {
     "id": "nvidia-rtx-6000-ada",
@@ -164,7 +194,13 @@
       "Newer Ada architecture with FP8 support the Ampere-based RTX A6000 lacks",
       "48GB VRAM at strong single-GPU rendering/inference throughput",
       "Certified drivers for professional DCC/CAD pipelines"
-    ]
+    ],
+    "market": {
+      "min_on_demand_price": 0.65,
+      "min_spot_price": 0.42,
+      "available_count": null,
+      "last_updated": "2026-08-05T14:23:41.364Z"
+    }
   },
   {
     "id": "nvidia-l40s",
@@ -193,7 +229,13 @@
       "Purpose-built for inference and generative AI serving at scale",
       "48GB VRAM comfortably serves 13B-34B quantized LLMs",
       "Strong choice when H100 supply is constrained or overkill"
-    ]
+    ],
+    "market": {
+      "min_on_demand_price": 1.05,
+      "min_spot_price": 0.79,
+      "available_count": null,
+      "last_updated": "2026-08-05T14:23:41.364Z"
+    }
   },
   {
     "id": "nvidia-a40",
@@ -221,7 +263,13 @@
       "48GB VRAM at a noticeably lower $/hr than newer Ada-generation cards",
       "NVLink bridge support for 2-GPU scaling, unlike its Ada successor",
       "Widely available secondhand/marketplace supply keeps pricing low"
-    ]
+    ],
+    "market": {
+      "min_on_demand_price": 0.35,
+      "min_spot_price": 0.22,
+      "available_count": null,
+      "last_updated": "2026-08-05T14:23:41.364Z"
+    }
   },
   {
     "id": "nvidia-rtx-5090",
@@ -250,7 +298,13 @@
       "Fastest consumer-class card we track for SDXL/ComfyUI throughput",
       "32GB VRAM — 8GB more than RTX 4090, room for bigger batches or SDXL + ControlNet stacks",
       "Still early in cloud rollout, so supply/pricing is less stable than RTX 4090"
-    ]
+    ],
+    "market": {
+      "min_on_demand_price": 0.21,
+      "min_spot_price": 0.1,
+      "available_count": 4,
+      "last_updated": "2026-08-05T14:23:41.364Z"
+    }
   },
   {
     "id": "nvidia-rtx-4090",
@@ -278,7 +332,13 @@
       "Cheapest $/hr for Stable Diffusion / ComfyUI workloads",
       "24GB VRAM covers SDXL, most 7B-13B quantized inference",
       "Widely available on spot/marketplace clouds at sub-$0.50/hr"
-    ]
+    ],
+    "market": {
+      "min_on_demand_price": 0.14,
+      "min_spot_price": 0.13,
+      "available_count": 2,
+      "last_updated": "2026-08-05T14:23:41.364Z"
+    }
   },
   {
     "id": "nvidia-rtx-a6000",
@@ -306,7 +366,13 @@
       "48GB VRAM handles larger batches than RTX 4090 for the same task class",
       "ECC memory and certified drivers for professional rendering pipelines",
       "Good middle ground between consumer cards and data-center pricing"
-    ]
+    ],
+    "market": {
+      "min_on_demand_price": 0.66,
+      "min_spot_price": 0.49,
+      "available_count": null,
+      "last_updated": "2026-08-05T14:23:41.364Z"
+    }
   },
   {
     "id": "nvidia-rtx-3090",
@@ -334,7 +400,13 @@
       "Lowest cost-per-GB-VRAM of any card we track — hard to beat for budget SDXL/inference",
       "Same 24GB as RTX 4090 at a fraction of the hourly rate, with lower raw throughput",
       "Massive marketplace availability keeps it in stock even during demand spikes"
-    ]
+    ],
+    "market": {
+      "min_on_demand_price": 0.22,
+      "min_spot_price": 0.14,
+      "available_count": null,
+      "last_updated": "2026-08-05T14:23:41.364Z"
+    }
   },
   {
     "id": "nvidia-v100",
@@ -362,7 +434,13 @@
       "Cheapest HBM data-center card we track — real memory bandwidth at a fraction of A100 pricing",
       "Still fully supported by CUDA/cuDNN and every major ML framework",
       "Good fit for teaching, small-batch fine-tuning, or reproducing older research"
-    ]
+    ],
+    "market": {
+      "min_on_demand_price": 0.35,
+      "min_spot_price": 0.22,
+      "available_count": null,
+      "last_updated": "2026-08-05T14:23:41.364Z"
+    }
   },
   {
     "id": "nvidia-a10",
@@ -390,7 +468,13 @@
       "150W TDP — the lowest power draw of any 24GB card here, cheapest to run 24/7",
       "24GB VRAM comfortably serves most 7B-13B model inference",
       "Data-center-grade reliability without data-center-grade pricing"
-    ]
+    ],
+    "market": {
+      "min_on_demand_price": 0.24,
+      "min_spot_price": 0.15,
+      "available_count": null,
+      "last_updated": "2026-08-05T14:23:41.364Z"
+    }
   },
   {
     "id": "nvidia-l4",
@@ -419,7 +503,13 @@
       "Lowest power draw of any card we track (72W) — very cheap to run continuously",
       "FP8 support despite the low power envelope, unusual for this class of card",
       "Single-slot form factor packs densely into inference-serving racks"
-    ]
+    ],
+    "market": {
+      "min_on_demand_price": 0.04,
+      "min_spot_price": 0.03,
+      "available_count": 1,
+      "last_updated": "2026-08-05T14:23:41.364Z"
+    }
   },
   {
     "id": "nvidia-t4",
@@ -446,6 +536,12 @@
       "Cheapest card we track — the default choice for cost-sensitive inference at scale",
       "70W TDP and passive-cooling-friendly form factor common in dense inference racks",
       "16GB VRAM is enough for most quantized 7B models or classic CV/video workloads"
-    ]
+    ],
+    "market": {
+      "min_on_demand_price": 0.15,
+      "min_spot_price": 0.1,
+      "available_count": null,
+      "last_updated": "2026-08-05T14:23:41.364Z"
+    }
   }
 ]
