@@ -79,6 +79,19 @@ def build_provider(name: str):
             raise RuntimeError("HOTAISLE_TEAM_HANDLE not set")
         return HotAisleProvider()
 
+    if name == "verda":
+        # Unlike JarvisLabs/HotAisle, VerdaProvider doesn't read env vars
+        # itself — its constructor takes client_id/client_secret directly
+        # (passed straight to the `verda` SDK's VerdaClient) — so we read
+        # our own env var names and pass them through explicitly.
+        from gpuhunt.providers.verda import VerdaProvider
+
+        client_id = os.getenv("VERDA_CLIENT_ID")
+        client_secret = os.getenv("VERDA_CLIENT_SECRET")
+        if not client_id or not client_secret:
+            raise RuntimeError("VERDA_CLIENT_ID / VERDA_CLIENT_SECRET not set")
+        return VerdaProvider(client_id, client_secret)
+
     raise RuntimeError(f"unknown gpuhunt provider {name!r}")
 
 

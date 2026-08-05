@@ -64,6 +64,8 @@ jobs:
           JARVISLABS_API_KEY: ${{ secrets.JARVISLABS_API_KEY }}
           HOTAISLE_API_KEY: ${{ secrets.HOTAISLE_API_KEY }}
           HOTAISLE_TEAM_HANDLE: ${{ secrets.HOTAISLE_TEAM_HANDLE }}
+          VERDA_CLIENT_ID: ${{ secrets.VERDA_CLIENT_ID }}
+          VERDA_CLIENT_SECRET: ${{ secrets.VERDA_CLIENT_SECRET }}
 
       - name: Check for data changes
         id: diff

@@ -439,8 +439,8 @@
     "payment_model": "Marketplace",
     "cloud_type": "Community",
     "has_api_cli": true,
-    "last_updated": "2026-08-05T20:34:22.016Z",
-    "available_count": 2
+    "last_updated": "2026-08-05T20:42:54.230Z",
+    "available_count": 1
   },
   {
     "id": "vast-ai",
@@ -597,8 +597,8 @@
     "payment_model": "Marketplace",
     "cloud_type": "Community",
     "has_api_cli": true,
-    "last_updated": "2026-08-05T20:34:22.016Z",
-    "available_count": 5
+    "last_updated": "2026-08-05T20:42:54.230Z",
+    "available_count": 4
   },
   {
     "id": "vast-ai",
@@ -1000,8 +1000,8 @@
     "logo_emoji": "🔷",
     "affiliate_url": "https://vast.ai/?ref=AFFILIATE_ID",
     "gpu_id": "nvidia-rtx-5080",
-    "price_on_demand": 0.18,
-    "price_spot": 0.16,
+    "price_on_demand": 0.13,
+    "price_spot": 0.13,
     "storage_cost_per_gb": 0.08,
     "egress_cost_per_gb": 0,
     "rating": 4.5,
@@ -1014,7 +1014,7 @@
     "payment_model": "Marketplace",
     "cloud_type": "Community",
     "has_api_cli": true,
-    "last_updated": "2026-08-05T20:29:03.984Z",
+    "last_updated": "2026-08-05T20:42:54.230Z",
     "available_count": 1
   },
   {
@@ -1025,7 +1025,7 @@
     "affiliate_url": "https://vast.ai/?ref=AFFILIATE_ID",
     "gpu_id": "nvidia-rtx-5070-ti",
     "price_on_demand": 0.1,
-    "price_spot": 0.1,
+    "price_spot": 0.09,
     "storage_cost_per_gb": 0.08,
     "egress_cost_per_gb": 0,
     "rating": 4.5,
@@ -1037,7 +1037,9 @@
     "interruption_risk": "High",
     "payment_model": "Marketplace",
     "cloud_type": "Community",
-    "has_api_cli": true
+    "has_api_cli": true,
+    "last_updated": "2026-08-05T20:42:54.230Z",
+    "available_count": 1
   },
   {
     "id": "vast-ai",
@@ -1126,7 +1128,7 @@
     "payment_model": "Marketplace",
     "cloud_type": "Community",
     "has_api_cli": true,
-    "last_updated": "2026-08-05T20:34:22.016Z",
+    "last_updated": "2026-08-05T20:42:54.230Z",
     "available_count": 1
   },
   {
@@ -1136,8 +1138,8 @@
     "logo_emoji": "🔷",
     "affiliate_url": "https://vast.ai/?ref=AFFILIATE_ID",
     "gpu_id": "nvidia-rtx-pro-6000",
-    "price_on_demand": 1.37,
-    "price_spot": 1.09,
+    "price_on_demand": 1.03,
+    "price_spot": 0.8,
     "storage_cost_per_gb": 0.08,
     "egress_cost_per_gb": 0,
     "rating": 4.5,
@@ -1150,7 +1152,7 @@
     "payment_model": "Marketplace",
     "cloud_type": "Community",
     "has_api_cli": true,
-    "last_updated": "2026-08-05T20:34:22.016Z",
+    "last_updated": "2026-08-05T20:42:54.230Z",
     "available_count": 1
   },
   {
@@ -1174,7 +1176,7 @@
     "payment_model": "Marketplace",
     "cloud_type": "Community",
     "has_api_cli": true,
-    "last_updated": "2026-08-05T20:34:22.016Z",
+    "last_updated": "2026-08-05T20:42:54.230Z",
     "available_count": 1
   },
   {
@@ -1291,6 +1293,213 @@
       "EU"
     ],
     "min_billing_increment": "per minute",
+    "interruption_risk": "None",
+    "payment_model": "On-Demand Cloud",
+    "cloud_type": "Secure",
+    "has_api_cli": true
+  },
+  {
+    "id": "verda",
+    "name": "Verda",
+    "slug": "verda",
+    "logo_emoji": "🧊",
+    "affiliate_url": "https://verda.com/?ref=AFFILIATE_ID",
+    "gpu_id": "nvidia-h100",
+    "price_on_demand": 3.25,
+    "price_spot": null,
+    "storage_cost_per_gb": 0.1,
+    "egress_cost_per_gb": 0,
+    "rating": 4.4,
+    "review_count": 25,
+    "regions": [
+      "EU",
+      "Iceland"
+    ],
+    "min_billing_increment": "per hour",
+    "interruption_risk": "None",
+    "payment_model": "On-Demand Cloud",
+    "cloud_type": "Secure",
+    "has_api_cli": true
+  },
+  {
+    "id": "verda",
+    "name": "Verda",
+    "slug": "verda",
+    "logo_emoji": "🧊",
+    "affiliate_url": "https://verda.com/?ref=AFFILIATE_ID",
+    "gpu_id": "nvidia-h200",
+    "price_on_demand": 4,
+    "price_spot": null,
+    "storage_cost_per_gb": 0.1,
+    "egress_cost_per_gb": 0,
+    "rating": 4.4,
+    "review_count": 25,
+    "regions": [
+      "EU",
+      "Iceland"
+    ],
+    "min_billing_increment": "per hour",
+    "interruption_risk": "None",
+    "payment_model": "On-Demand Cloud",
+    "cloud_type": "Secure",
+    "has_api_cli": true
+  },
+  {
+    "id": "verda",
+    "name": "Verda",
+    "slug": "verda",
+    "logo_emoji": "🧊",
+    "affiliate_url": "https://verda.com/?ref=AFFILIATE_ID",
+    "gpu_id": "nvidia-a100",
+    "price_on_demand": 1.79,
+    "price_spot": null,
+    "storage_cost_per_gb": 0.1,
+    "egress_cost_per_gb": 0,
+    "rating": 4.4,
+    "review_count": 25,
+    "regions": [
+      "EU",
+      "Iceland"
+    ],
+    "min_billing_increment": "per hour",
+    "interruption_risk": "None",
+    "payment_model": "On-Demand Cloud",
+    "cloud_type": "Secure",
+    "has_api_cli": true
+  },
+  {
+    "id": "verda",
+    "name": "Verda",
+    "slug": "verda",
+    "logo_emoji": "🧊",
+    "affiliate_url": "https://verda.com/?ref=AFFILIATE_ID",
+    "gpu_id": "nvidia-b200",
+    "price_on_demand": 6.11,
+    "price_spot": null,
+    "storage_cost_per_gb": 0.1,
+    "egress_cost_per_gb": 0,
+    "rating": 4.4,
+    "review_count": 25,
+    "regions": [
+      "EU",
+      "Iceland"
+    ],
+    "min_billing_increment": "per hour",
+    "interruption_risk": "None",
+    "payment_model": "On-Demand Cloud",
+    "cloud_type": "Secure",
+    "has_api_cli": true
+  },
+  {
+    "id": "verda",
+    "name": "Verda",
+    "slug": "verda",
+    "logo_emoji": "🧊",
+    "affiliate_url": "https://verda.com/?ref=AFFILIATE_ID",
+    "gpu_id": "nvidia-v100",
+    "price_on_demand": 0.17,
+    "price_spot": null,
+    "storage_cost_per_gb": 0.1,
+    "egress_cost_per_gb": 0,
+    "rating": 4.4,
+    "review_count": 25,
+    "regions": [
+      "EU",
+      "Iceland"
+    ],
+    "min_billing_increment": "per hour",
+    "interruption_risk": "None",
+    "payment_model": "On-Demand Cloud",
+    "cloud_type": "Secure",
+    "has_api_cli": true
+  },
+  {
+    "id": "verda",
+    "name": "Verda",
+    "slug": "verda",
+    "logo_emoji": "🧊",
+    "affiliate_url": "https://verda.com/?ref=AFFILIATE_ID",
+    "gpu_id": "nvidia-rtx-pro-6000",
+    "price_on_demand": 1.89,
+    "price_spot": null,
+    "storage_cost_per_gb": 0.1,
+    "egress_cost_per_gb": 0,
+    "rating": 4.4,
+    "review_count": 25,
+    "regions": [
+      "EU",
+      "Iceland"
+    ],
+    "min_billing_increment": "per hour",
+    "interruption_risk": "None",
+    "payment_model": "On-Demand Cloud",
+    "cloud_type": "Secure",
+    "has_api_cli": true
+  },
+  {
+    "id": "verda",
+    "name": "Verda",
+    "slug": "verda",
+    "logo_emoji": "🧊",
+    "affiliate_url": "https://verda.com/?ref=AFFILIATE_ID",
+    "gpu_id": "nvidia-l40s",
+    "price_on_demand": 1.37,
+    "price_spot": null,
+    "storage_cost_per_gb": 0.1,
+    "egress_cost_per_gb": 0,
+    "rating": 4.4,
+    "review_count": 25,
+    "regions": [
+      "EU",
+      "Iceland"
+    ],
+    "min_billing_increment": "per hour",
+    "interruption_risk": "None",
+    "payment_model": "On-Demand Cloud",
+    "cloud_type": "Secure",
+    "has_api_cli": true
+  },
+  {
+    "id": "verda",
+    "name": "Verda",
+    "slug": "verda",
+    "logo_emoji": "🧊",
+    "affiliate_url": "https://verda.com/?ref=AFFILIATE_ID",
+    "gpu_id": "nvidia-rtx-6000-ada",
+    "price_on_demand": 1.04,
+    "price_spot": null,
+    "storage_cost_per_gb": 0.1,
+    "egress_cost_per_gb": 0,
+    "rating": 4.4,
+    "review_count": 25,
+    "regions": [
+      "EU",
+      "Iceland"
+    ],
+    "min_billing_increment": "per hour",
+    "interruption_risk": "None",
+    "payment_model": "On-Demand Cloud",
+    "cloud_type": "Secure",
+    "has_api_cli": true
+  },
+  {
+    "id": "verda",
+    "name": "Verda",
+    "slug": "verda",
+    "logo_emoji": "🧊",
+    "affiliate_url": "https://verda.com/?ref=AFFILIATE_ID",
+    "gpu_id": "nvidia-rtx-a6000",
+    "price_on_demand": 0.61,
+    "price_spot": null,
+    "storage_cost_per_gb": 0.1,
+    "egress_cost_per_gb": 0,
+    "rating": 4.4,
+    "review_count": 25,
+    "regions": [
+      "EU",
+      "Iceland"
+    ],
+    "min_billing_increment": "per hour",
     "interruption_risk": "None",
     "payment_model": "On-Demand Cloud",
     "cloud_type": "Secure",

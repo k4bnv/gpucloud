@@ -27,11 +27,13 @@ Copy [`.env.example`](.env.example) → `.env` and fill in what you need. Every 
 | `AFFILIATE_URL_CLOUDRIFT` | `https://cloudrift.ai/?ref=AFFILIATE_ID` (placeholder) | Real CloudRift referral link. |
 | `AFFILIATE_URL_JARVISLABS` | `https://jarvislabs.ai/?ref=AFFILIATE_ID` (placeholder) | Real JarvisLabs referral link. |
 | `AFFILIATE_URL_HOTAISLE` | `https://hotaisle.xyz/?ref=AFFILIATE_ID` (placeholder) | Real Hot Aisle referral link. |
+| `AFFILIATE_URL_VERDA` | `https://verda.com/?ref=AFFILIATE_ID` (placeholder) | Real Verda referral link. |
 | `RUNPOD_API_KEY` | unset → RunPod fetcher no-ops (not an error) | Enables the live RunPod price fetcher in `scripts/fetch-prices.ts`. Get one from the RunPod dashboard. |
 | `HYPERSTACK_API_KEY` | unset → Hyperstack fetcher no-ops (not an error) | Enables the live Hyperstack price fetcher (`/core/flavors` + `/pricebook`). Get one from the Hyperstack console. |
 | `THUNDER_API_KEY` | unset → Thunder Compute fetcher no-ops (not an error) | Enables the live Thunder Compute price fetcher (`/v2/pricing` + `/v2/specs`). Get one from the Thunder Compute dashboard. |
 | `JARVISLABS_API_KEY` | unset → JarvisLabs fetcher no-ops (not an error) | Enables the live JarvisLabs price fetcher, run through `gpuhunt` (needs `pip install -r scripts/gpuhunt/requirements.txt` too — see README.md). Get one from the JarvisLabs dashboard. |
 | `HOTAISLE_API_KEY` + `HOTAISLE_TEAM_HANDLE` | unset → Hot Aisle fetcher no-ops (not an error) | Both required together to enable the live Hot Aisle (AMD MI300X/MI355X) price fetcher, also run through `gpuhunt`. Get them from the Hot Aisle dashboard. |
+| `VERDA_CLIENT_ID` + `VERDA_CLIENT_SECRET` | unset → Verda fetcher no-ops (not an error) | Both required together to enable the live Verda (formerly DataCrunch) price fetcher, also run through `gpuhunt`. Deepens 9 GPUs at once (H100, H200, A100, B200, V100, RTX PRO 6000, L40S, RTX 6000 Ada, RTX A6000). Get them from the Verda dashboard. |
 | `GPUHUNT_PYTHON_BIN` | unset → falls back to `python3` (`python` on Windows) on `PATH` | Path to the Python interpreter used for the CloudRift/JarvisLabs fetchers. The self-hosted Docker image sets this to its baked-in venv automatically; you shouldn't need to touch it outside of local dev. |
 | `SOCIAL_URLS` | unset → `sameAs` omitted from schema | Comma-separated list of your own real off-site profile URLs (LinkedIn company page, GitHub org, etc.) — becomes `sameAs` in the sitewide Organization JSON-LD (`src/lib/schema.ts`). Only put URLs you actually own; never a placeholder. |
 | `SYNC_INTERVAL_HOURS` | `6` | **Docker only.** Hours between in-container price re-syncs. Set directly in `docker-compose.yaml`, not `.env`. |
@@ -85,7 +87,7 @@ Set the environment variables from the table above in the host's project setting
 
 `.github/workflows/daily-sync.yml` runs every 6 hours (or on-demand via **Actions → GPU Price Sync → Run workflow**), re-syncs prices, and commits to `main` if anything changed. If your host auto-deploys on push (the default for all three), that commit alone triggers a fresh deploy — `DEPLOY_HOOK_URL` isn't needed. Set it as a repo secret only if you disabled git-based auto-deploy and need an explicit trigger.
 
-Optional repo secrets: `RUNPOD_API_KEY`, `HYPERSTACK_API_KEY`, `THUNDER_API_KEY`, `JARVISLABS_API_KEY`, `HOTAISLE_API_KEY`, `HOTAISLE_TEAM_HANDLE` (Settings → Secrets and variables → Actions) — same purpose as the `.env` vars above, but for the CI job specifically; independent of what's set in `.env`. The workflow already runs `actions/setup-python` + installs `scripts/gpuhunt/requirements.txt` for the CloudRift/JarvisLabs/Hot Aisle fetchers — nothing extra to configure there.
+Optional repo secrets: `RUNPOD_API_KEY`, `HYPERSTACK_API_KEY`, `THUNDER_API_KEY`, `JARVISLABS_API_KEY`, `HOTAISLE_API_KEY`, `HOTAISLE_TEAM_HANDLE`, `VERDA_CLIENT_ID`, `VERDA_CLIENT_SECRET` (Settings → Secrets and variables → Actions) — same purpose as the `.env` vars above, but for the CI job specifically; independent of what's set in `.env`. The workflow already runs `actions/setup-python` + installs `scripts/gpuhunt/requirements.txt` for the CloudRift/JarvisLabs/Hot Aisle/Verda fetchers — nothing extra to configure there.
 
 ---
 

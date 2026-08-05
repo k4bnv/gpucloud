@@ -445,16 +445,26 @@ async function fetchStaticFallbackPrices(providerSlug: string): Promise<RawOffer
 }
 
 // ---------------------------------------------------------------------------
-// 3f. CloudRift, JarvisLabs, Hot Aisle — routed through `gpuhunt`
+// 3f. CloudRift, JarvisLabs, Hot Aisle, Verda — routed through `gpuhunt`
 //     (github.com/dstackai/gpuhunt, MPL-2.0) rather than a hand-written
 //     fetch call. gpuhunt is a real open-source library that itself calls
 //     each provider's own first-party API (api.cloudrift.ai,
-//     backendn.jarvislabs.net, admin.hotaisle.app) — it is NOT a
-//     price-comparison aggregator like gpus.io/gputracker.dev, whose Terms
-//     of Service explicitly forbid exactly this kind of reuse (see
-//     README.md). We spawn it as a Python subprocess per provider instead
-//     of reimplementing each one's auth/parsing by hand in TS — see
-//     scripts/gpuhunt/fetch_gpuhunt.py.
+//     backendn.jarvislabs.net, admin.hotaisle.app, Verda's own SDK) — it
+//     is NOT a price-comparison aggregator like gpus.io/gputracker.dev,
+//     whose Terms of Service explicitly forbid exactly this kind of reuse
+//     (see README.md). We spawn it as a Python subprocess per provider
+//     instead of reimplementing each one's auth/parsing by hand in TS —
+//     see scripts/gpuhunt/fetch_gpuhunt.py.
+//
+//     Verda (formerly DataCrunch) is the deepest of the four: it overlaps
+//     8 already-tracked GPUs (H100, H200, A100, B200, V100, L40S, RTX 6000
+//     Ada, RTX A6000) plus RTX PRO 6000, rather than adding one narrow new
+//     row like the other three. Unverified against a real account, though
+//     — needs VERDA_CLIENT_ID/VERDA_CLIENT_SECRET, and gpuhunt itself
+//     silently drops any raw offer it can't match to its own internal GPU
+//     registry (already observed with CloudRift's L40S), so treat the
+//     seeded prices below as the source of truth until a real sync run
+//     confirms what actually comes back.
 //
 //     Not every gpuhunt-supported provider belongs here, though: Vultr is
 //     also auth-free but was deliberately left out after checking its
@@ -541,6 +551,16 @@ async function fetchHotAislePrices(): Promise<RawOffer[]> {
   return fetchViaGpuhunt("hotaisle", "hotaisle");
 }
 
+async function fetchVerdaPrices(): Promise<RawOffer[]> {
+  if (!process.env.VERDA_CLIENT_ID || !process.env.VERDA_CLIENT_SECRET) {
+    console.info(
+      "[verda] VERDA_CLIENT_ID / VERDA_CLIENT_SECRET not set — skipping live fetch, keeping existing prices."
+    );
+    return [];
+  }
+  return fetchViaGpuhunt("verda", "verda");
+}
+
 function round2(value: number): number {
   return Math.round(value * 100) / 100;
 }
@@ -625,6 +645,7 @@ async function main(): Promise<void> {
     fetchCloudRiftPrices(),
     fetchJarvisLabsPrices(),
     fetchHotAislePrices(),
+    fetchVerdaPrices(),
     fetchStaticFallbackPrices("paperspace"),
     fetchStaticFallbackPrices("novita-ai"),
   ]);

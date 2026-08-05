@@ -2,8 +2,8 @@
 
 Programmatic-SEO price comparison site for GPU cloud rental (RunPod, Vast.ai,
 Hyperstack, Paperspace, Novita AI, Thunder Compute, CloudRift, JarvisLabs,
-Hot Aisle). Astro + React islands + Tailwind, fully static (SSG), built for
-speed, mobile-first layout and affiliate-link conversion.
+Hot Aisle, Verda). Astro + React islands + Tailwind, fully static (SSG),
+built for speed, mobile-first layout and affiliate-link conversion.
 
 > **Deploying this?** See [DEPLOYMENT.md](DEPLOYMENT.md) for the full
 > guide — environment variables, self-hosted Docker, static-host CI, and
@@ -109,17 +109,18 @@ throwing.
 | **CloudRift** | `api.cloudrift.ai/api/v1/instance-types/list`, no auth — via `gpuhunt` (see below) | Runs as-is; on any failure (including Python/gpuhunt missing), keeps existing prices |
 | **JarvisLabs** | `/misc/server_meta`, requires an API key — via `gpuhunt` (see below) | No-ops (not an error) if `JARVISLABS_API_KEY` isn't set |
 | **Hot Aisle** | `admin.hotaisle.app/.../virtual_machines/available/`, requires an API key + team handle — via `gpuhunt` (see below) | No-ops (not an error) if `HOTAISLE_API_KEY`/`HOTAISLE_TEAM_HANDLE` aren't set. AMD MI300X/MI355X only, no NVIDIA. |
+| **Verda** | Verda's own SDK (`VERDA_CLIENT_ID`/`VERDA_CLIENT_SECRET`) — via `gpuhunt` (see below) | No-ops (not an error) if either var isn't set. Deepens 9 GPUs at once (H100, H200, A100, B200, V100, RTX PRO 6000, L40S, RTX 6000 Ada, RTX A6000) rather than adding one narrow row. |
 | **Paperspace, Novita AI** | No confirmed stable public pricing API | Always keeps the last committed price (documented fetcher stub — swap in a real integration per provider once one's confirmed) |
 
-CloudRift, JarvisLabs and Hot Aisle are the one exception to "every fetcher
-is a plain Node `fetch` call": all three are routed through
+CloudRift, JarvisLabs, Hot Aisle and Verda are the one exception to "every
+fetcher is a plain Node `fetch` call": all four are routed through
 [`gpuhunt`](https://github.com/dstackai/gpuhunt) (MPL-2.0), a real
 open-source Python library that itself calls those providers' first-party
 APIs — see `scripts/gpuhunt/fetch_gpuhunt.py` for the thin CLI wrapper and
 the big comment in `scripts/fetch-prices.ts` (section 3f) for why. This
 means `npm run sync-prices` needs a `python3`/`python` on `PATH` with
 `pip install -r scripts/gpuhunt/requirements.txt` run once for those rows
-to self-correct; without it, all three fetchers fail closed (keep the last
+to self-correct; without it, all four fetchers fail closed (keep the last
 committed price) exactly like a missing API key does for everyone else —
 it never breaks the build. Self-hosted Docker bakes this venv into the
 image already (see the Dockerfile); the static-host CI path

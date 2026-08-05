@@ -1,1 +1,4 @@
 gpuhunt==0.1.29
+# Verda's own SDK — gpuhunt.providers.verda imports this directly, it's
+# not pulled in as a gpuhunt dependency.
+verda==1.24.0
