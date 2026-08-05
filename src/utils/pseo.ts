@@ -97,7 +97,7 @@ export function getAllComparisonSlugs(): string[] {
 
 /**
  * Parses a `[a]-vs-[b]` slug. GPU ids and provider slugs both contain
- * hyphens (e.g. "nvidia-rtx-4090", "lambda-labs") so we can't just split on
+ * hyphens (e.g. "nvidia-rtx-4090", "novita-ai") so we can't just split on
  * "-vs-" blindly — we try every "-vs-" occurrence as the split point until
  * both halves resolve against a known GPU or provider.
  */

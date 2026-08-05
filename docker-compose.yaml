@@ -12,9 +12,6 @@ services:
       # Optional. The RunPod fetcher just skips itself (not an error)
       # when this is unset — see scripts/fetch-prices.ts.
       - RUNPOD_API_KEY=${RUNPOD_API_KEY:-}
-      # Optional. The Lambda Labs fetcher just skips itself (not an error)
-      # when this is unset — see scripts/fetch-prices.ts.
-      - LAMBDA_API_KEY=${LAMBDA_API_KEY:-}
       # Optional — production domain for sitemap/canonical/OG tags. Falls
       # back to https://gpucompare.cloud (src/lib/seo.ts) if unset.
       - SITE_URL=${SITE_URL:-}
@@ -28,9 +25,9 @@ services:
       # automatically. Any left unset here keep the placeholder URL.
       - AFFILIATE_URL_RUNPOD=${AFFILIATE_URL_RUNPOD:-}
       - AFFILIATE_URL_VAST_AI=${AFFILIATE_URL_VAST_AI:-}
-      - AFFILIATE_URL_SALADCLOUD=${AFFILIATE_URL_SALADCLOUD:-}
-      - AFFILIATE_URL_LAMBDA_LABS=${AFFILIATE_URL_LAMBDA_LABS:-}
-      - AFFILIATE_URL_COREWEAVE=${AFFILIATE_URL_COREWEAVE:-}
+      - AFFILIATE_URL_HYPERSTACK=${AFFILIATE_URL_HYPERSTACK:-}
+      - AFFILIATE_URL_PAPERSPACE=${AFFILIATE_URL_PAPERSPACE:-}
+      - AFFILIATE_URL_NOVITA_AI=${AFFILIATE_URL_NOVITA_AI:-}
     networks:
       - frontend
 

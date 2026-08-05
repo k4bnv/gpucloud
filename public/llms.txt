@@ -13,7 +13,7 @@ a visible "last updated" timestamp per GPU.
 
 ## Providers tracked
 
-RunPod, Vast.ai, SaladCloud, Lambda Labs, CoreWeave — see each provider's
+RunPod, Vast.ai, Hyperstack, Paperspace, Novita AI — see each provider's
 current price on every GPU page below, or filter by provider on the
 homepage table.
 

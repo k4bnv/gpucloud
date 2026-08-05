@@ -245,66 +245,12 @@ async function fetchRunPodPrices(): Promise<RawOffer[]> {
 }
 
 // ---------------------------------------------------------------------------
-// 3c. Lambda Labs — Cloud API's public `instance-types` endpoint. Requires
-//     an API key (HTTP Basic auth, key as the username, empty password —
-//     see Lambda's Cloud API docs). Lambda doesn't offer spot/interruptible
-//     pricing, so price_spot is always null for this provider.
-// ---------------------------------------------------------------------------
-
-const LAMBDA_INSTANCE_TYPES_URL = "https://cloud.lambdalabs.com/api/v1/instance-types";
-
-interface LambdaInstanceType {
-  instance_type?: {
-    gpu_description?: string;
-    description?: string;
-    price_cents_per_hour?: number;
-  };
-}
-
-async function fetchLambdaLabsPrices(): Promise<RawOffer[]> {
-  const providerSlug = "lambda-labs";
-  const apiKey = process.env.LAMBDA_API_KEY;
-  if (!apiKey) {
-    console.info("[lambda-labs] LAMBDA_API_KEY not set — skipping live fetch, keeping existing prices.");
-    return [];
-  }
-
-  try {
-    const res = await fetchWithTimeout(LAMBDA_INSTANCE_TYPES_URL, {
-      headers: { Authorization: `Basic ${Buffer.from(`${apiKey}:`).toString("base64")}` },
-    });
-    if (!res.ok) {
-      throw new Error(`HTTP ${res.status} ${res.statusText}`);
-    }
-    const json = (await res.json()) as { data?: Record<string, LambdaInstanceType> };
-
-    const offers: RawOffer[] = [];
-    for (const entry of Object.values(json.data ?? {})) {
-      const it = entry.instance_type;
-      const gpuId = normalizeGpuName(it?.gpu_description ?? it?.description ?? "");
-      const cents = it?.price_cents_per_hour;
-      if (!gpuId || typeof cents !== "number") continue;
-
-      offers.push({
-        providerSlug,
-        gpuId,
-        priceOnDemand: round2(cents / 100),
-        priceSpot: null, // Lambda Cloud has no spot/interruptible tier.
-      });
-    }
-    return offers;
-  } catch (err) {
-    console.warn(`[lambda-labs] Live fetch failed, keeping existing prices for this provider: ${errorMessage(err)}`);
-    return [];
-  }
-}
-
-// ---------------------------------------------------------------------------
-// 3d. SaladCloud, CoreWeave — no confirmed stable public/unauthenticated
-//     pricing API to poll. Rather than fabricate numbers, these stay on
-//     their last committed price until a real integration is added; this
-//     fetcher exists so the sync run + logging is consistent for every
-//     provider, and so wiring up a real API later is a one-function change.
+// 3c. Hyperstack, Paperspace, Novita AI — no confirmed stable
+//     public/unauthenticated pricing API to poll. Rather than fabricate
+//     numbers, these stay on their last committed price until a real
+//     integration is added; this fetcher exists so the sync run + logging
+//     is consistent for every provider, and so wiring up a real API later
+//     is a one-function change.
 // ---------------------------------------------------------------------------
 
 async function fetchStaticFallbackPrices(providerSlug: string): Promise<RawOffer[]> {
@@ -391,9 +337,9 @@ async function main(): Promise<void> {
   const results = await Promise.allSettled([
     fetchVastPrices(),
     fetchRunPodPrices(),
-    fetchLambdaLabsPrices(),
-    fetchStaticFallbackPrices("saladcloud"),
-    fetchStaticFallbackPrices("coreweave"),
+    fetchStaticFallbackPrices("hyperstack"),
+    fetchStaticFallbackPrices("paperspace"),
+    fetchStaticFallbackPrices("novita-ai"),
   ]);
 
   const rawOffers: RawOffer[] = [];
