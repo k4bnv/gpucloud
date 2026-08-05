@@ -300,7 +300,7 @@ async function fetchLambdaLabsPrices(): Promise<RawOffer[]> {
 }
 
 // ---------------------------------------------------------------------------
-// 3d. TensorDock, CoreWeave — no confirmed stable public/unauthenticated
+// 3d. SaladCloud, CoreWeave — no confirmed stable public/unauthenticated
 //     pricing API to poll. Rather than fabricate numbers, these stay on
 //     their last committed price until a real integration is added; this
 //     fetcher exists so the sync run + logging is consistent for every
@@ -392,7 +392,7 @@ async function main(): Promise<void> {
     fetchVastPrices(),
     fetchRunPodPrices(),
     fetchLambdaLabsPrices(),
-    fetchStaticFallbackPrices("tensordock"),
+    fetchStaticFallbackPrices("saladcloud"),
     fetchStaticFallbackPrices("coreweave"),
   ]);
 

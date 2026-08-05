@@ -1,7 +1,7 @@
 # GPUCompare.cloud
 
 Programmatic-SEO price comparison site for GPU cloud rental (RunPod, Vast.ai,
-TensorDock, Lambda Labs, CoreWeave). Astro + React islands + Tailwind, fully
+SaladCloud, Lambda Labs, CoreWeave). Astro + React islands + Tailwind, fully
 static (SSG), built for speed, mobile-first layout and affiliate-link
 conversion.
 
@@ -36,6 +36,12 @@ reads the JSON files and joins them (`getAllComputedOffers`,
 see below. Affiliate URLs default to a `?ref=AFFILIATE_ID` placeholder but
 are meant to be overridden via environment variables, not hand-edited in
 the JSON — see **[Affiliate links](#affiliate-links)**.
+
+**SaladCloud's two rows (RTX 3090, RTX 4090) are rough ballpark estimates**,
+not verified against their live pricing page — SaladCloud has no fetcher
+in `scripts/fetch-prices.ts` yet (see the fetcher table below), so these
+numbers won't self-correct. Verify against salad.com before relying on
+them for real traffic.
 
 ## Routes
 
@@ -86,7 +92,7 @@ throwing.
 | **Vast.ai** | Public `bundles` marketplace endpoint, no auth | Runs as-is; on any HTTP/network failure, keeps existing prices |
 | **RunPod** | GraphQL `gpuTypes` query, requires an API key | No-ops (not an error) if `RUNPOD_API_KEY` isn't set |
 | **Lambda Labs** | Cloud API `instance-types` endpoint, requires an API key | No-ops (not an error) if `LAMBDA_API_KEY` isn't set |
-| **TensorDock, CoreWeave** | No confirmed stable public pricing API | Always keeps the last committed price (documented fetcher stub — swap in a real integration per provider once one's confirmed) |
+| **SaladCloud, CoreWeave** | No confirmed stable public pricing API | Always keeps the last committed price (documented fetcher stub — swap in a real integration per provider once one's confirmed) |
 
 `normalizeGpuName()` maps each provider's raw GPU string ("GeForce RTX 4090
 24GB", "H100 SXM5", …) down to our catalog ids; anything that doesn't match

@@ -20,7 +20,7 @@ Copy [`.env.example`](.env.example) → `.env` and fill in what you need. Every 
 | `SITE_URL` | `https://gpucompare.cloud` | Domain baked into `sitemap.xml`, every `<link rel="canonical">`, and OG/Twitter tags. Only set this if deploying to a different domain. |
 | `AFFILIATE_URL_RUNPOD` | `https://runpod.io/?ref=AFFILIATE_ID` (placeholder) | Real RunPod referral link. |
 | `AFFILIATE_URL_VAST_AI` | `https://vast.ai/?ref=AFFILIATE_ID` (placeholder) | Real Vast.ai referral link. |
-| `AFFILIATE_URL_TENSORDOCK` | `https://tensordock.com/?ref=AFFILIATE_ID` (placeholder) | Real TensorDock referral link. |
+| `AFFILIATE_URL_SALADCLOUD` | `https://salad.com/?ref=AFFILIATE_ID` (placeholder) | Real SaladCloud referral link. |
 | `AFFILIATE_URL_LAMBDA_LABS` | `https://lambdalabs.com/?ref=AFFILIATE_ID` (placeholder) | Real Lambda Labs referral link. |
 | `AFFILIATE_URL_COREWEAVE` | `https://coreweave.com/?ref=AFFILIATE_ID` (placeholder) | Real CoreWeave referral link. |
 | `RUNPOD_API_KEY` | unset → RunPod fetcher no-ops (not an error) | Enables the live RunPod price fetcher in `scripts/fetch-prices.ts`. Get one from the RunPod dashboard. |
