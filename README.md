@@ -85,7 +85,8 @@ throwing.
 |---|---|---|
 | **Vast.ai** | Public `bundles` marketplace endpoint, no auth | Runs as-is; on any HTTP/network failure, keeps existing prices |
 | **RunPod** | GraphQL `gpuTypes` query, requires an API key | No-ops (not an error) if `RUNPOD_API_KEY` isn't set |
-| **TensorDock, Lambda Labs, CoreWeave** | No stable public pricing API | Always keeps the last committed price (documented fetcher stub — swap in a real integration per provider as one becomes available) |
+| **Lambda Labs** | Cloud API `instance-types` endpoint, requires an API key | No-ops (not an error) if `LAMBDA_API_KEY` isn't set |
+| **TensorDock, CoreWeave** | No confirmed stable public pricing API | Always keeps the last committed price (documented fetcher stub — swap in a real integration per provider once one's confirmed) |
 
 `normalizeGpuName()` maps each provider's raw GPU string ("GeForce RTX 4090
 24GB", "H100 SXM5", …) down to our catalog ids; anything that doesn't match

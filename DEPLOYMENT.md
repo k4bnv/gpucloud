@@ -24,6 +24,7 @@ Copy [`.env.example`](.env.example) → `.env` and fill in what you need. Every 
 | `AFFILIATE_URL_LAMBDA_LABS` | `https://lambdalabs.com/?ref=AFFILIATE_ID` (placeholder) | Real Lambda Labs referral link. |
 | `AFFILIATE_URL_COREWEAVE` | `https://coreweave.com/?ref=AFFILIATE_ID` (placeholder) | Real CoreWeave referral link. |
 | `RUNPOD_API_KEY` | unset → RunPod fetcher no-ops (not an error) | Enables the live RunPod price fetcher in `scripts/fetch-prices.ts`. Get one from the RunPod dashboard. |
+| `LAMBDA_API_KEY` | unset → Lambda Labs fetcher no-ops (not an error) | Enables the live Lambda Labs price fetcher. Get one from the Lambda Cloud dashboard (Settings → API keys). |
 | `SYNC_INTERVAL_HOURS` | `6` | **Docker only.** Hours between in-container price re-syncs. Set directly in `docker-compose.yaml`, not `.env`. |
 | `DEPLOY_HOOK_URL` | unset → step skipped | **GitHub Actions only**, set as a repo *secret* (Settings → Secrets → Actions), not in `.env`. POSTed after a price commit — only needed if your static host doesn't auto-deploy on git push. |
 
@@ -75,7 +76,7 @@ Set the environment variables from the table above in the host's project setting
 
 `.github/workflows/daily-sync.yml` runs every 6 hours (or on-demand via **Actions → GPU Price Sync → Run workflow**), re-syncs prices, and commits to `main` if anything changed. If your host auto-deploys on push (the default for all three), that commit alone triggers a fresh deploy — `DEPLOY_HOOK_URL` isn't needed. Set it as a repo secret only if you disabled git-based auto-deploy and need an explicit trigger.
 
-Optional repo secret: `RUNPOD_API_KEY` (Settings → Secrets and variables → Actions) — same purpose as the `.env` var above, but for the CI job specifically; the two are independent.
+Optional repo secrets: `RUNPOD_API_KEY`, `LAMBDA_API_KEY` (Settings → Secrets and variables → Actions) — same purpose as the `.env` vars above, but for the CI job specifically; they're independent of what's set in `.env`.
 
 ---
 

@@ -49,8 +49,9 @@ jobs:
       - name: Sync GPU cloud prices
         run: npm run sync-prices
         env:
-          # Optional — the RunPod fetcher no-ops (not fails) without this.
+          # Optional — these fetchers no-op (not fail) without their key.
           RUNPOD_API_KEY: ${{ secrets.RUNPOD_API_KEY }}
+          LAMBDA_API_KEY: ${{ secrets.LAMBDA_API_KEY }}
 
       - name: Check for data changes
         id: diff
