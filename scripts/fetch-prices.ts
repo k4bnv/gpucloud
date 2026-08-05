@@ -373,7 +373,16 @@ async function main(): Promise<void> {
   }
 }
 
-main().catch((err) => {
-  console.error("[fetch-prices] Fatal error:", err);
-  process.exitCode = 1;
-});
+// Only run when executed directly (`tsx scripts/fetch-prices.ts` / `npm run
+// sync-prices`) — NOT when this module is merely imported (e.g. a test
+// importing `normalizeGpuName`). Without this guard, an import alone
+// silently syncs live prices and overwrites src/data/*.json as a side
+// effect, which is exactly how this file got a stray "market" snapshot
+// committed once already.
+const isMainModule = process.argv[1] && import.meta.url === `file://${process.argv[1]}`;
+if (isMainModule) {
+  main().catch((err) => {
+    console.error("[fetch-prices] Fatal error:", err);
+    process.exitCode = 1;
+  });
+}
