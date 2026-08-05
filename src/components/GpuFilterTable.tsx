@@ -278,7 +278,9 @@ export default function GpuFilterTable({ rows }: Props) {
                     {row.rating.toFixed(1)}
                   </span>
                 </td>
-                <td className="px-4 py-3 text-xs text-slate-500">{row.providerCount} providers</td>
+                <td className="px-4 py-3 text-xs text-slate-500">
+                  {row.providerCount} {row.providerCount === 1 ? "provider" : "providers"}
+                </td>
                 <td className="px-4 py-3 text-right">
                   <a
                     href={row.bestProviderUrl}
