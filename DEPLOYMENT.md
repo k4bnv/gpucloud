@@ -25,6 +25,8 @@ Copy [`.env.example`](.env.example) → `.env` and fill in what you need. Every 
 | `AFFILIATE_URL_NOVITA_AI` | `https://novita.ai/?ref=AFFILIATE_ID` (placeholder) | Real Novita AI referral link. |
 | `AFFILIATE_URL_THUNDER_COMPUTE` | `https://www.thundercompute.com/?ref=AFFILIATE_ID` (placeholder) | Real Thunder Compute referral link. |
 | `RUNPOD_API_KEY` | unset → RunPod fetcher no-ops (not an error) | Enables the live RunPod price fetcher in `scripts/fetch-prices.ts`. Get one from the RunPod dashboard. |
+| `HYPERSTACK_API_KEY` | unset → Hyperstack fetcher no-ops (not an error) | Enables the live Hyperstack price fetcher (`/core/flavors` + `/pricebook`). Get one from the Hyperstack console. |
+| `THUNDER_API_KEY` | unset → Thunder Compute fetcher no-ops (not an error) | Enables the live Thunder Compute price fetcher (`/v2/pricing` + `/v2/specs`). Get one from the Thunder Compute dashboard. |
 | `SOCIAL_URLS` | unset → `sameAs` omitted from schema | Comma-separated list of your own real off-site profile URLs (LinkedIn company page, GitHub org, etc.) — becomes `sameAs` in the sitewide Organization JSON-LD (`src/lib/schema.ts`). Only put URLs you actually own; never a placeholder. |
 | `SYNC_INTERVAL_HOURS` | `6` | **Docker only.** Hours between in-container price re-syncs. Set directly in `docker-compose.yaml`, not `.env`. |
 | `DEPLOY_HOOK_URL` | unset → step skipped | **GitHub Actions only**, set as a repo *secret* (Settings → Secrets → Actions), not in `.env`. POSTed after a price commit — only needed if your static host doesn't auto-deploy on git push. |

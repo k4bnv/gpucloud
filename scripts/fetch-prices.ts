@@ -51,6 +51,11 @@ const FETCH_TIMEOUT_MS = 15_000;
  * Two substring traps to keep in mind when adding new patterns:
  *   - "l4" is a substring of "l40s" → l40s must be checked first.
  *   - "a10" is a substring of "a100" → a100 must be checked first.
+ * Matching is word-boundary-aware (see normalizeGpuName below), which
+ * closes a related trap ordering alone can't fix: a bare "L40" (a real,
+ * different card we don't track — not the same as L40S) contains "l4" as
+ * a plain substring and would otherwise misclassify as an L4 offer no
+ * matter where l4's pattern sits in this list.
  */
 const GPU_NAME_PATTERNS: Array<{ id: string; patterns: string[] }> = [
   { id: "nvidia-rtx-6000-ada", patterns: ["rtx 6000 ada", "6000 ada"] },
@@ -85,9 +90,22 @@ export function normalizeGpuName(rawName: string): string | null {
     .trim();
 
   for (const { id, patterns } of GPU_NAME_PATTERNS) {
-    if (patterns.some((p) => cleaned.includes(p))) return id;
+    if (patterns.some((p) => matchesWholeToken(cleaned, p))) return id;
   }
   return null;
+}
+
+/**
+ * True if `pattern` appears in `cleaned` on word boundaries — i.e. not as
+ * part of a longer alphanumeric run. Plain `.includes()` would let "l40"
+ * (a card we don't track) match the "l4" pattern, since "l40" contains
+ * "l4" as a substring; `\b` on both sides rules that out while still
+ * matching "l4" on its own or followed by non-alphanumeric text ("l4
+ * 24gb").
+ */
+function matchesWholeToken(cleaned: string, pattern: string): boolean {
+  const escaped = pattern.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`\\b${escaped}\\b`).test(cleaned);
 }
 
 // ---------------------------------------------------------------------------
@@ -245,12 +263,149 @@ async function fetchRunPodPrices(): Promise<RawOffer[]> {
 }
 
 // ---------------------------------------------------------------------------
-// 3c. Hyperstack, Paperspace, Novita AI, Thunder Compute — no confirmed stable
-//     public/unauthenticated pricing API to poll. Rather than fabricate
-//     numbers, these stay on their last committed price until a real
-//     integration is added; this fetcher exists so the sync run + logging
-//     is consistent for every provider, and so wiring up a real API later
-//     is a one-function change.
+// 3c. Hyperstack — Infrahub API. Endpoints, base URL and the `api_key`
+//     header (no "Bearer" prefix) confirmed against NexGenCloud's actual
+//     generated Python SDK source (github.com/nexgencloud/hyperstack-python-sdk),
+//     not just docs prose. `/core/flavors` lists (region, GPU config) rows
+//     with a `name` field and `stock_available`; `/pricebook` is a flat
+//     list of { name, value } keyed by that same flavor name — join on it.
+// ---------------------------------------------------------------------------
+
+const HYPERSTACK_BASE_URL = "https://infrahub-api.nexgencloud.com/v1";
+
+interface HyperstackFlavor {
+  name?: string;
+  display_name?: string;
+  gpu?: string | null;
+  gpu_count?: number | null;
+  stock_available?: boolean;
+}
+
+interface HyperstackPricebookEntry {
+  name?: string;
+  value?: number;
+}
+
+async function fetchHyperstackPrices(): Promise<RawOffer[]> {
+  const providerSlug = "hyperstack";
+  const apiKey = process.env.HYPERSTACK_API_KEY;
+  if (!apiKey) {
+    console.info("[hyperstack] HYPERSTACK_API_KEY not set — skipping live fetch, keeping existing prices.");
+    return [];
+  }
+
+  try {
+    const headers = { api_key: apiKey };
+    const [flavorsRes, pricebookRes] = await Promise.all([
+      fetchWithTimeout(`${HYPERSTACK_BASE_URL}/core/flavors`, { headers }),
+      fetchWithTimeout(`${HYPERSTACK_BASE_URL}/pricebook`, { headers }),
+    ]);
+    if (!flavorsRes.ok) throw new Error(`GET /core/flavors: HTTP ${flavorsRes.status} ${flavorsRes.statusText}`);
+    if (!pricebookRes.ok) throw new Error(`GET /pricebook: HTTP ${pricebookRes.status} ${pricebookRes.statusText}`);
+
+    const flavorsJson = (await flavorsRes.json()) as { data?: HyperstackFlavor[] };
+    const pricebookJson = (await pricebookRes.json()) as HyperstackPricebookEntry[];
+
+    const priceByFlavorName = new Map<string, number>();
+    for (const entry of pricebookJson ?? []) {
+      if (entry.name && typeof entry.value === "number") priceByFlavorName.set(entry.name, entry.value);
+    }
+
+    // Single-GPU flavors only — our schema is a per-GPU hourly rate, not a
+    // per-instance rate for a multi-GPU bundle. Cheapest match wins when a
+    // GPU is offered across multiple regions/flavors.
+    const byGpu = new Map<string, number>();
+    for (const flavor of flavorsJson.data ?? []) {
+      if (!flavor.gpu || flavor.gpu_count !== 1 || !flavor.name) continue;
+      const price = priceByFlavorName.get(flavor.name);
+      if (typeof price !== "number") continue;
+
+      const gpuId = normalizeGpuName(flavor.display_name ?? flavor.gpu);
+      if (!gpuId) continue;
+
+      const existing = byGpu.get(gpuId);
+      byGpu.set(gpuId, existing === undefined ? price : Math.min(existing, price));
+    }
+
+    return [...byGpu.entries()].map(([gpuId, price]) => ({
+      providerSlug,
+      gpuId,
+      priceOnDemand: round2(price),
+      priceSpot: null, // Pricebook exposes no separate spot/interruptible rate.
+    }));
+  } catch (err) {
+    console.warn(`[hyperstack] Live fetch failed, keeping existing prices for this provider: ${errorMessage(err)}`);
+    return [];
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 3d. Thunder Compute — confirmed against the actual open-source Go CLI
+//     (github.com/Thunder-Compute/thunder-cli, api/client.go), not just
+//     docs prose: base URL, Bearer auth, and both endpoints' response
+//     shapes read straight from that source. `/v2/pricing` and `/v2/specs`
+//     are both keyed by "<gpuType>_x<gpuCount>"; we only want the
+//     single-GPU ("_x1") entries for our per-GPU hourly schema.
+// ---------------------------------------------------------------------------
+
+const THUNDER_COMPUTE_BASE_URL = "https://api.thundercompute.com:8443";
+
+interface ThunderComputeSpec {
+  displayName?: string;
+}
+
+async function fetchThunderComputePrices(): Promise<RawOffer[]> {
+  const providerSlug = "thunder-compute";
+  const apiKey = process.env.THUNDER_API_KEY;
+  if (!apiKey) {
+    console.info("[thunder-compute] THUNDER_API_KEY not set — skipping live fetch, keeping existing prices.");
+    return [];
+  }
+
+  try {
+    const headers = { Authorization: `Bearer ${apiKey}` };
+    const [pricingRes, specsRes] = await Promise.all([
+      fetchWithTimeout(`${THUNDER_COMPUTE_BASE_URL}/v2/pricing`, { headers }),
+      fetchWithTimeout(`${THUNDER_COMPUTE_BASE_URL}/v2/specs`, { headers }),
+    ]);
+    if (!pricingRes.ok) throw new Error(`GET /v2/pricing: HTTP ${pricingRes.status} ${pricingRes.statusText}`);
+    if (!specsRes.ok) throw new Error(`GET /v2/specs: HTTP ${specsRes.status} ${specsRes.statusText}`);
+
+    const pricingJson = (await pricingRes.json()) as { pricing?: Record<string, number> };
+    const specsJson = (await specsRes.json()) as { specs?: Record<string, ThunderComputeSpec> };
+
+    const byGpu = new Map<string, number>();
+    for (const [key, price] of Object.entries(pricingJson.pricing ?? {})) {
+      const match = key.match(/^(.+)_x(\d+)$/);
+      if (!match || match[2] !== "1" || typeof price !== "number") continue; // single-GPU rows only
+
+      const gpuType = match[1];
+      const displayName = specsJson.specs?.[key]?.displayName;
+      const gpuId = normalizeGpuName(displayName ?? gpuType);
+      if (!gpuId) continue;
+
+      const existing = byGpu.get(gpuId);
+      byGpu.set(gpuId, existing === undefined ? price : Math.min(existing, price));
+    }
+
+    return [...byGpu.entries()].map(([gpuId, price]) => ({
+      providerSlug,
+      gpuId,
+      priceOnDemand: round2(price),
+      priceSpot: null, // No spot/interruptible tier in Thunder's pricing model.
+    }));
+  } catch (err) {
+    console.warn(`[thunder-compute] Live fetch failed, keeping existing prices for this provider: ${errorMessage(err)}`);
+    return [];
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 3e. Paperspace, Novita AI — no confirmed stable public/unauthenticated
+//     pricing API to poll. Rather than fabricate numbers, these stay on
+//     their last committed price until a real integration is added; this
+//     fetcher exists so the sync run + logging is consistent for every
+//     provider, and so wiring up a real API later is a one-function change.
 // ---------------------------------------------------------------------------
 
 async function fetchStaticFallbackPrices(providerSlug: string): Promise<RawOffer[]> {
@@ -337,10 +492,10 @@ async function main(): Promise<void> {
   const results = await Promise.allSettled([
     fetchVastPrices(),
     fetchRunPodPrices(),
-    fetchStaticFallbackPrices("hyperstack"),
+    fetchHyperstackPrices(),
+    fetchThunderComputePrices(),
     fetchStaticFallbackPrices("paperspace"),
     fetchStaticFallbackPrices("novita-ai"),
-    fetchStaticFallbackPrices("thunder-compute"),
   ]);
 
   const rawOffers: RawOffer[] = [];

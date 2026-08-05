@@ -12,6 +12,12 @@ services:
       # Optional. The RunPod fetcher just skips itself (not an error)
       # when this is unset — see scripts/fetch-prices.ts.
       - RUNPOD_API_KEY=${RUNPOD_API_KEY:-}
+      # Optional. The Hyperstack fetcher just skips itself (not an error)
+      # when this is unset — see scripts/fetch-prices.ts.
+      - HYPERSTACK_API_KEY=${HYPERSTACK_API_KEY:-}
+      # Optional. The Thunder Compute fetcher just skips itself (not an
+      # error) when this is unset — see scripts/fetch-prices.ts.
+      - THUNDER_API_KEY=${THUNDER_API_KEY:-}
       # Optional — production domain for sitemap/canonical/OG tags. Falls
       # back to https://gpucompare.cloud (src/lib/seo.ts) if unset.
       - SITE_URL=${SITE_URL:-}
