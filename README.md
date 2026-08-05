@@ -5,6 +5,10 @@ TensorDock, Lambda Labs, CoreWeave). Astro + React islands + Tailwind, fully
 static (SSG), built for speed, mobile-first layout and affiliate-link
 conversion.
 
+> **Deploying this?** See [DEPLOYMENT.md](DEPLOYMENT.md) for the full
+> guide — environment variables, self-hosted Docker, static-host CI, and
+> getting the site into Google.
+
 ## Stack
 
 - **Framework:** [Astro](https://astro.build) (static output) + React islands
@@ -94,90 +98,12 @@ per GPU (min on-demand/spot price, summed live availability where a
 provider reports a count, and a `last_updated` timestamp) — see
 `GpuMarketSnapshot` in `src/types/index.ts`.
 
-Required for the RunPod integration:
-
-```bash
-RUNPOD_API_KEY=...  npm run sync-prices
-```
-
-Two ways to keep this running on a schedule — pick one:
-
-### Option A — Self-hosted Docker (no CI, no GitHub required)
-
-See **[Self-hosting with Docker](#self-hosting-with-docker)** below. The
-container re-syncs and rebuilds itself on an interval — nothing needs to
-push to `main` or run in GitHub Actions.
-
-### Option B — Static host + GitHub Actions (`.github/workflows/daily-sync.yml`)
-
-For deploying to Vercel/Netlify/Cloudflare Pages instead: the workflow runs
-`sync-prices` every 6 hours (plus on-demand via `workflow_dispatch`) and
-commits `src/data/*.json` straight to `main` when prices actually changed,
-which triggers the host's normal git-push auto-deploy. Configure in the
-repo's Actions secrets:
-
-- `RUNPOD_API_KEY` — optional, enables the RunPod fetcher.
-- `DEPLOY_HOOK_URL` — optional, a platform deploy hook POSTed after a
-  successful price commit (useful if the host doesn't auto-deploy on push).
-  Skipped (not failed) if unset.
-
-You don't need both — if you're self-hosting with Docker, you can disable
-or delete this workflow.
-
-## Configuration via environment variables
-
-Both of these are read once at build time (`src/lib/loadEnv.ts` +
-`src/lib/seo.ts` / `src/lib/data.ts`, and `astro.config.mjs` for
-`SITE_URL` specifically) and baked into every generated page — there's no
-client-side lookup, so they work identically however you build. Copy
-[`.env.example`](.env.example) to `.env` and fill in what you need:
-
-```bash
-cp .env.example .env
-```
-
-- **Docker (recommended for self-hosting):** put `.env` next to
-  `docker-compose.yaml` — Compose reads it automatically for the entries
-  already wired into the `environment:` block, so it's picked up on every
-  `docker compose up -d --build` and on every in-container resync (see
-  below).
-- **Local `npm run dev` / `npm run build`:** the same `.env` at the
-  project root works too — a small dependency-free loader
-  (`src/lib/loadEnv.ts`) reads it into `process.env` (Astro/Vite's own
-  dotenv handling only exposes `PUBLIC_`-prefixed vars to build code,
-  which these deliberately aren't, so this project loads the file
-  itself instead).
-- **CI (`.github/workflows/daily-sync.yml`):** set these as real repo
-  Actions secrets/variables and pass them through to the sync step the
-  same way `RUNPOD_API_KEY` is, if you're using that path instead.
-
-### Site domain
-
-`SITE_URL` controls the domain baked into `sitemap.xml`, every page's
-`<link rel="canonical">`, and OpenGraph/Twitter tags. Defaults to
-`https://gpucompare.cloud` (both `astro.config.mjs` and
-`src/lib/seo.ts` — keep them in sync if you change the default). Only set
-this if you're deploying to a different domain:
-
-```bash
-SITE_URL=https://your-domain.example
-```
-
-### Affiliate links
-
-Every `affiliate_url` in `src/data/providers.json` ships as a
-`?ref=AFFILIATE_ID` placeholder — swap in your real referral links via
-environment variables instead of editing that committed file:
-
-```bash
-# one line per provider, e.g.:
-AFFILIATE_URL_RUNPOD=https://runpod.io/?ref=YOUR_REAL_ID
-```
-
-The convention is `AFFILIATE_URL_<SLUG>` — the provider's `slug` field
-from `providers.json`, uppercased with hyphens as underscores (`vast-ai` →
-`AFFILIATE_URL_VAST_AI`). Any provider left unset keeps the placeholder
-URL; nothing breaks if you only have deals with some providers.
+Two ways to keep this running on a schedule — self-hosted Docker
+(re-syncs itself, no CI) or a static host + `.github/workflows/daily-sync.yml`
+(commits fresh prices to `main`, host redeploys on push). Full setup steps
+for both, plus every environment variable involved, are in
+**[DEPLOYMENT.md](DEPLOYMENT.md)** — this section is about how the sync
+logic itself works, not how to run it.
 
 ## Self-hosting with Docker
 
@@ -185,22 +111,9 @@ One container, no external CI: `docker/entrypoint.sh` re-runs
 `npm run sync-prices` + rebuilds the Astro site **inside the running
 container** on an interval, and nginx serves the result. Nothing pushes to
 GitHub and nothing needs to redeploy the image for prices to stay fresh.
-
-```bash
-docker compose up -d --build
-```
-
-`docker-compose.yaml` expects an external `frontend` Docker network
-(`docker network create frontend` if it doesn't exist yet) and publishes
-port 8090 on the host.
-
-**`gpucompare.cloud` is served via a Cloudflare Tunnel, not a reverse
-proxy in front of this container.** The tunnel's Public Hostname config
-points `gpucompare.cloud` at wherever this container is reachable (its
-published port, or the container name if the tunnel runs on the same
-Docker network). Cloudflare terminates TLS at its edge and tunnels the
-connection out directly — no port-forwarding, no local reverse proxy, no
-ACME cert resolver needed for this domain.
+See [DEPLOYMENT.md](DEPLOYMENT.md) for the actual `docker compose`
+commands and domain/TLS setup — this section covers how the refresh loop
+and image are built.
 
 **How the refresh loop works** (`docker/entrypoint.sh`):
 
@@ -214,15 +127,6 @@ ACME cert resolver needed for this domain.
 3. On failure (a provider API down, a bad build), the currently-served
    `dist/` is left completely untouched — a bad sync never takes the site
    offline.
-
-Environment variables (set in `docker-compose.yaml`):
-
-| Variable | Default | Purpose |
-|---|---|---|
-| `SYNC_INTERVAL_HOURS` | `6` | Hours between in-container price syncs |
-| `RUNPOD_API_KEY` | unset | Optional — enables the RunPod fetcher (see above) |
-| `SITE_URL` | `https://gpucompare.cloud` | Domain for sitemap/canonical/OG tags, see [Site domain](#site-domain) |
-| `AFFILIATE_URL_*` | unset | Optional — your real referral links, see [Affiliate links](#affiliate-links) |
 
 Image layout: `node:20-alpine` + `nginx`, `docker build` bakes one initial
 `dist/` (this is the only point `astro check` runs — a broken build fails
