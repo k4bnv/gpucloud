@@ -18,6 +18,9 @@ services:
       # Optional — production domain for sitemap/canonical/OG tags. Falls
       # back to https://gpucompare.cloud (src/lib/seo.ts) if unset.
       - SITE_URL=${SITE_URL:-}
+      # Optional — comma-separated real off-site profile URLs (LinkedIn,
+      # GitHub, ...) for the Organization schema's `sameAs`. Unset = omitted.
+      - SOCIAL_URLS=${SOCIAL_URLS:-}
       # Optional real affiliate/referral links — override the
       # "?ref=AFFILIATE_ID" placeholder baked into src/data/providers.json
       # per-provider, without editing/committing that file. See .env.example

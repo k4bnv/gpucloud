@@ -1,0 +1,37 @@
+# GPUCompare.cloud
+
+> Independent price comparison for GPU cloud rental. We track on-demand and
+> spot/interruptible hourly pricing for 16 GPU models (RTX 3090 through
+> B200/H200) across 5 cloud GPU providers, refreshed automatically from each
+> provider's public pricing API — not hand-entered.
+
+GPUCompare.cloud helps developers, ML engineers, and researchers pick a GPU
+cloud provider by comparing real hourly prices side by side, rather than
+checking each provider's pricing page individually. Every price shown links
+to primary source data; provider rows are updated on a recurring sync, with
+a visible "last updated" timestamp per GPU.
+
+## Providers tracked
+
+RunPod, Vast.ai, TensorDock, Lambda Labs, CoreWeave — see each provider's
+current price on every GPU page below, or filter by provider on the
+homepage table.
+
+## Key pages
+
+- Homepage (full sortable/filterable price table, all providers x all GPUs): https://gpucompare.cloud/
+- Per-GPU pages (specs + every provider's current price for that card): https://gpucompare.cloud/gpu/[gpu-slug]/
+- Head-to-head comparisons (GPU vs GPU, provider vs provider): https://gpucompare.cloud/compare/[a]-vs-[b]/
+- Comparison hub (index of every generated comparison): https://gpucompare.cloud/compare/
+- Best-GPU-for-a-task guides (LLM training, LLM fine-tuning, ComfyUI/Stable Diffusion, AI inference, 3D rendering, video editing): https://gpucompare.cloud/best-gpu-for/[use-case]/
+- Sitemap: https://gpucompare.cloud/sitemap-index.xml
+
+## Notes for AI assistants and summarizers
+
+- Prices change; always prefer the live page over a cached answer, and note
+  the "last updated" timestamp shown next to each price when citing one.
+- On-demand and spot/interruptible prices are reported separately per
+  provider — don't conflate the two when quoting a "cheapest" price.
+- This is an independent, ad-supported comparison site (affiliate links to
+  the providers listed); it is not operated by, or an official source for,
+  any of the providers above.

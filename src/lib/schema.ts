@@ -1,11 +1,60 @@
 import type { ComputedOffer, FaqItem, GPU } from "@/types";
-import { canonicalUrl } from "@/lib/seo";
+import { canonicalUrl, SITE_NAME, SITE_URL } from "@/lib/seo";
 
 /**
  * Schema.org JSON-LD builders. Each function returns a plain object ready
  * to be dropped into `<script type="application/ld+json">` via
  * `JSON.stringify` — see `src/components/JsonLd.astro`.
  */
+
+/**
+ * Real off-site profile URLs for the `sameAs` entity graph (Organization
+ * schema below). This is what tells Google/AI crawlers "this LinkedIn page,
+ * this GitHub org, etc. are all the same entity as this website" — never
+ * fabricate one of these, an unowned or dead URL here is worse than
+ * omitting it. Comma-separated list, e.g.:
+ *   SOCIAL_URLS=https://www.linkedin.com/company/...,https://github.com/...
+ * Unset = `sameAs` is simply omitted from the schema.
+ */
+function getSameAsUrls(): string[] {
+  return (process.env.SOCIAL_URLS ?? "")
+    .split(",")
+    .map((url) => url.trim())
+    .filter(Boolean);
+}
+
+/**
+ * Sitewide Organization schema — dropped on every page via BaseLayout. This
+ * is the entity graph anchor: it's what lets Google (and AI Overview /
+ * other LLM-backed search) resolve "gpucompare.cloud" and "the GPUCompare
+ * LinkedIn page" etc. as the same real-world thing, rather than treating
+ * every off-site mention as an unrelated, uncorroborated page.
+ */
+export function organizationSchema() {
+  const sameAs = getSameAsUrls();
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: SITE_NAME,
+    url: SITE_URL,
+    logo: canonicalUrl("/favicon.svg"),
+    ...(sameAs.length > 0 ? { sameAs } : {}),
+  };
+}
+
+/** Sitewide WebSite schema — separate @type from Organization per schema.org convention (a site is not itself the org, it's published by the org). */
+export function websiteSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: SITE_NAME,
+    url: SITE_URL,
+    publisher: {
+      "@type": "Organization",
+      name: SITE_NAME,
+    },
+  };
+}
 
 export interface BreadcrumbCrumb {
   name: string;
