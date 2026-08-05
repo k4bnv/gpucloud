@@ -1,7 +1,7 @@
 # GPUCompare.cloud
 
 Programmatic-SEO price comparison site for GPU cloud rental (RunPod, Vast.ai,
-Hyperstack, Paperspace, Novita AI). Astro + React islands + Tailwind, fully
+Hyperstack, Paperspace, Novita AI, Thunder Compute). Astro + React islands + Tailwind, fully
 static (SSG), built for speed, mobile-first layout and affiliate-link
 conversion.
 
@@ -37,11 +37,13 @@ see below. Affiliate URLs default to a `?ref=AFFILIATE_ID` placeholder but
 are meant to be overridden via environment variables, not hand-edited in
 the JSON — see **[Affiliate links](#affiliate-links)**.
 
-**Hyperstack, Paperspace and Novita AI's rows are rough ballpark estimates**,
-not verified against their live pricing pages — none of the three has a
-fetcher in `scripts/fetch-prices.ts` yet (see the fetcher table below), so
-these numbers won't self-correct. Verify against each provider's own
-pricing page before relying on them for real traffic.
+**Provider price freshness varies by source.** Novita AI and Thunder Compute's
+rows were cross-checked against gpus.io's live aggregator at the time they
+were added; Hyperstack and Paperspace's rows are rough ballpark estimates,
+not verified against either provider's own pricing page. None of the four
+has a fetcher in `scripts/fetch-prices.ts` yet (see the fetcher table
+below), so none of these numbers self-correct — re-verify all four
+periodically before relying on them for real traffic.
 
 ## Routes
 
@@ -91,7 +93,7 @@ throwing.
 |---|---|---|
 | **Vast.ai** | Public `bundles` marketplace endpoint, no auth | Runs as-is; on any HTTP/network failure, keeps existing prices |
 | **RunPod** | GraphQL `gpuTypes` query, requires an API key | No-ops (not an error) if `RUNPOD_API_KEY` isn't set |
-| **Hyperstack, Paperspace, Novita AI** | No confirmed stable public pricing API | Always keeps the last committed price (documented fetcher stub — swap in a real integration per provider once one's confirmed) |
+| **Hyperstack, Paperspace, Novita AI, Thunder Compute** | No confirmed stable public pricing API | Always keeps the last committed price (documented fetcher stub — swap in a real integration per provider once one's confirmed) |
 
 `normalizeGpuName()` maps each provider's raw GPU string ("GeForce RTX 4090
 24GB", "H100 SXM5", …) down to our catalog ids; anything that doesn't match

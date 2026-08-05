@@ -245,7 +245,7 @@ async function fetchRunPodPrices(): Promise<RawOffer[]> {
 }
 
 // ---------------------------------------------------------------------------
-// 3c. Hyperstack, Paperspace, Novita AI — no confirmed stable
+// 3c. Hyperstack, Paperspace, Novita AI, Thunder Compute — no confirmed stable
 //     public/unauthenticated pricing API to poll. Rather than fabricate
 //     numbers, these stay on their last committed price until a real
 //     integration is added; this fetcher exists so the sync run + logging
@@ -340,6 +340,7 @@ async function main(): Promise<void> {
     fetchStaticFallbackPrices("hyperstack"),
     fetchStaticFallbackPrices("paperspace"),
     fetchStaticFallbackPrices("novita-ai"),
+    fetchStaticFallbackPrices("thunder-compute"),
   ]);
 
   const rawOffers: RawOffer[] = [];

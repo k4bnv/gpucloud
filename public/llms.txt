@@ -2,7 +2,7 @@
 
 > Independent price comparison for GPU cloud rental. We track on-demand and
 > spot/interruptible hourly pricing for 16 GPU models (RTX 3090 through
-> B200/H200) across 5 cloud GPU providers, refreshed automatically from each
+> B200/H200) across 6 cloud GPU providers, refreshed automatically from each
 > provider's public pricing API where one exists — not hand-entered.
 
 GPUCompare.cloud helps developers, ML engineers, and researchers pick a GPU
@@ -13,7 +13,7 @@ a visible "last updated" timestamp per GPU.
 
 ## Providers tracked
 
-RunPod, Vast.ai, Hyperstack, Paperspace, Novita AI — see each provider's
+RunPod, Vast.ai, Hyperstack, Paperspace, Novita AI, Thunder Compute — see each provider's
 current price on every GPU page below, or filter by provider on the
 homepage table.
 
