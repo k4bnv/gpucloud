@@ -426,7 +426,7 @@
     "affiliate_url": "https://vast.ai/?ref=AFFILIATE_ID",
     "gpu_id": "nvidia-rtx-4090",
     "price_on_demand": 0.14,
-    "price_spot": 0.13,
+    "price_spot": 0.11,
     "storage_cost_per_gb": 0.08,
     "egress_cost_per_gb": 0,
     "rating": 4.5,
@@ -439,7 +439,7 @@
     "payment_model": "Marketplace",
     "cloud_type": "Community",
     "has_api_cli": true,
-    "last_updated": "2026-08-06T03:16:01.245Z",
+    "last_updated": "2026-08-06T14:26:25.685Z",
     "available_count": 1
   },
   {
@@ -597,8 +597,8 @@
     "payment_model": "Marketplace",
     "cloud_type": "Community",
     "has_api_cli": true,
-    "last_updated": "2026-08-06T08:46:51.558Z",
-    "available_count": 4
+    "last_updated": "2026-08-06T14:26:25.685Z",
+    "available_count": 5
   },
   {
     "id": "vast-ai",
@@ -643,7 +643,7 @@
     "payment_model": "Marketplace",
     "cloud_type": "Community",
     "has_api_cli": true,
-    "last_updated": "2026-08-06T08:46:51.558Z",
+    "last_updated": "2026-08-06T14:26:25.685Z",
     "available_count": 1
   },
   {
