@@ -46,12 +46,11 @@ export default function ProviderComparisonTable({ gpu, offers }: Props) {
 
   return (
     <div className="card overflow-x-auto">
-      <table className="w-full min-w-[760px] text-left text-sm">
+      <table className="w-full min-w-[680px] text-left text-sm">
         <thead>
           <tr className="border-b border-surface-700 text-xs uppercase tracking-wide text-slate-500">
             <th className="px-4 py-3 font-medium">Provider</th>
-            <th className="px-4 py-3 font-medium">On-Demand</th>
-            <th className="px-4 py-3 font-medium">Spot</th>
+            <th className="px-4 py-3 font-medium">On-Demand / Spot</th>
             <th className="px-4 py-3 font-medium">Storage</th>
             <th className="px-4 py-3 font-medium">Egress</th>
             <th className="px-4 py-3 font-medium text-right">Action</th>
@@ -74,7 +73,7 @@ export default function ProviderComparisonTable({ gpu, offers }: Props) {
               </td>
 
               <td className="px-4 py-3">
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                   <span className="font-mono font-semibold text-slate-100">
                     {formatUsd(offer.price_on_demand)}
                     <span className="text-xs font-normal text-slate-500">/hr</span>
@@ -85,16 +84,15 @@ export default function ProviderComparisonTable({ gpu, offers }: Props) {
                     </span>
                   )}
                 </div>
-              </td>
-
-              <td className="px-4 py-3">
-                {offer.price_spot !== null ? (
-                  <span className="inline-flex items-center rounded-full border border-neon-blue/40 bg-neon-blue/10 px-2 py-0.5 font-mono text-xs font-semibold text-neon-blue">
-                    {formatUsd(offer.price_spot)}/hr
-                  </span>
-                ) : (
-                  <span className="text-xs text-slate-600">Not offered</span>
-                )}
+                <div className="mt-1">
+                  {offer.price_spot !== null ? (
+                    <span className="inline-flex items-center gap-1 rounded-full border border-neon-blue/40 bg-neon-blue/10 px-2 py-0.5 font-mono text-xs font-semibold text-neon-blue">
+                      spot {formatUsd(offer.price_spot)}/hr
+                    </span>
+                  ) : (
+                    <span className="text-xs text-slate-600">Spot not offered</span>
+                  )}
+                </div>
               </td>
 
               <td className="px-4 py-3 text-xs text-slate-400">

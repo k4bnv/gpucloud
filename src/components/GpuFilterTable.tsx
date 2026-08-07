@@ -203,13 +203,12 @@ export default function GpuFilterTable({ rows }: Props) {
 
       {/* Table */}
       <div className="card overflow-x-auto">
-        <table className="w-full min-w-[720px] text-left text-sm">
+        <table className="w-full min-w-[640px] text-left text-sm">
           <thead>
             <tr className="border-b border-surface-700 text-xs uppercase tracking-wide text-slate-500">
               <th className="px-4 py-3 font-medium">GPU</th>
               <th className="px-4 py-3 font-medium">VRAM</th>
-              <th className="px-4 py-3 font-medium">From (on-demand)</th>
-              <th className="px-4 py-3 font-medium">Spot</th>
+              <th className="px-4 py-3 font-medium">On-Demand / Spot</th>
               <th className="px-4 py-3 font-medium">$/GB VRAM/hr</th>
               <th className="px-4 py-3 font-medium">Rating</th>
               <th className="px-4 py-3 font-medium">Providers</th>
@@ -227,7 +226,7 @@ export default function GpuFilterTable({ rows }: Props) {
                 </td>
                 <td className="px-4 py-3 text-slate-300">{row.vramGb} GB</td>
                 <td className="px-4 py-3">
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <span className="font-mono font-semibold text-slate-100">
                       {formatUsd(row.bestPriceOnDemand)}
                     </span>
@@ -237,16 +236,14 @@ export default function GpuFilterTable({ rows }: Props) {
                       </span>
                     )}
                   </div>
-                  <div className="text-xs text-slate-500">via {row.bestProviderName}</div>
-                </td>
-                <td className="px-4 py-3">
-                  {row.bestPriceSpot !== null ? (
-                    <span className="inline-flex items-center gap-1 rounded-full border border-neon-blue/40 bg-neon-blue/10 px-2 py-0.5 text-xs font-semibold text-neon-blue">
-                      {formatUsd(row.bestPriceSpot)}
-                    </span>
-                  ) : (
-                    <span className="text-xs text-slate-600">—</span>
-                  )}
+                  <div className="mt-1 flex items-center gap-1.5 text-xs text-slate-500">
+                    <span>via {row.bestProviderName}</span>
+                    {row.bestPriceSpot !== null && (
+                      <span className="inline-flex items-center gap-1 rounded-full border border-neon-blue/40 bg-neon-blue/10 px-2 py-0.5 font-mono font-semibold text-neon-blue">
+                        spot {formatUsd(row.bestPriceSpot)}
+                      </span>
+                    )}
+                  </div>
                 </td>
                 <td className="px-4 py-3 font-mono text-xs text-slate-400">
                   {formatUsd(row.pricePerVramHr)}
