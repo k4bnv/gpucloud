@@ -471,30 +471,8 @@
     "logo_emoji": "🔷",
     "affiliate_url": "https://vast.ai/?ref=AFFILIATE_ID",
     "gpu_id": "nvidia-h200",
-    "price_on_demand": 3.29,
-    "price_spot": 2.19,
-    "storage_cost_per_gb": 0.08,
-    "egress_cost_per_gb": 0,
-    "rating": 4.5,
-    "review_count": 3400,
-    "regions": [
-      "Global (peer-to-peer)"
-    ],
-    "min_billing_increment": "per second",
-    "interruption_risk": "High",
-    "payment_model": "Marketplace",
-    "cloud_type": "Community",
-    "has_api_cli": true
-  },
-  {
-    "id": "vast-ai",
-    "name": "Vast.ai",
-    "slug": "vast-ai",
-    "logo_emoji": "🔷",
-    "affiliate_url": "https://vast.ai/?ref=AFFILIATE_ID",
-    "gpu_id": "nvidia-l4",
-    "price_on_demand": 0.03,
-    "price_spot": 0.03,
+    "price_on_demand": 3.16,
+    "price_spot": 1.33,
     "storage_cost_per_gb": 0.08,
     "egress_cost_per_gb": 0,
     "rating": 4.5,
@@ -507,7 +485,31 @@
     "payment_model": "Marketplace",
     "cloud_type": "Community",
     "has_api_cli": true,
-    "last_updated": "2026-08-07T13:17:18.391Z",
+    "last_updated": "2026-08-07T19:05:16.294Z",
+    "available_count": 1
+  },
+  {
+    "id": "vast-ai",
+    "name": "Vast.ai",
+    "slug": "vast-ai",
+    "logo_emoji": "🔷",
+    "affiliate_url": "https://vast.ai/?ref=AFFILIATE_ID",
+    "gpu_id": "nvidia-l4",
+    "price_on_demand": 0.03,
+    "price_spot": 0.07,
+    "storage_cost_per_gb": 0.08,
+    "egress_cost_per_gb": 0,
+    "rating": 4.5,
+    "review_count": 3400,
+    "regions": [
+      "Global (peer-to-peer)"
+    ],
+    "min_billing_increment": "per second",
+    "interruption_risk": "High",
+    "payment_model": "Marketplace",
+    "cloud_type": "Community",
+    "has_api_cli": true,
+    "last_updated": "2026-08-07T19:05:16.294Z",
     "available_count": 1
   },
   {
@@ -584,7 +586,7 @@
     "affiliate_url": "https://vast.ai/?ref=AFFILIATE_ID",
     "gpu_id": "nvidia-rtx-5090",
     "price_on_demand": 0.34,
-    "price_spot": 0.33,
+    "price_spot": 0.4,
     "storage_cost_per_gb": 0.08,
     "egress_cost_per_gb": 0,
     "rating": 4.5,
@@ -597,8 +599,8 @@
     "payment_model": "Marketplace",
     "cloud_type": "Community",
     "has_api_cli": true,
-    "last_updated": "2026-08-07T13:17:18.391Z",
-    "available_count": 3
+    "last_updated": "2026-08-07T19:05:16.294Z",
+    "available_count": 2
   },
   {
     "id": "vast-ai",
@@ -643,7 +645,7 @@
     "payment_model": "Marketplace",
     "cloud_type": "Community",
     "has_api_cli": true,
-    "last_updated": "2026-08-07T07:25:28.797Z",
+    "last_updated": "2026-08-07T19:05:16.294Z",
     "available_count": 1
   },
   {
