@@ -425,8 +425,8 @@
     "logo_emoji": "🔷",
     "affiliate_url": "https://vast.ai/?ref=AFFILIATE_ID",
     "gpu_id": "nvidia-rtx-4090",
-    "price_on_demand": 0.19,
-    "price_spot": 0.13,
+    "price_on_demand": 0.4,
+    "price_spot": 0.39,
     "storage_cost_per_gb": 0.08,
     "egress_cost_per_gb": 0,
     "rating": 4.5,
@@ -439,8 +439,8 @@
     "payment_model": "Marketplace",
     "cloud_type": "Community",
     "has_api_cli": true,
-    "last_updated": "2026-08-10T02:16:14.811Z",
-    "available_count": 2
+    "last_updated": "2026-08-10T13:22:15.031Z",
+    "available_count": 1
   },
   {
     "id": "vast-ai",
@@ -585,8 +585,8 @@
     "logo_emoji": "🔷",
     "affiliate_url": "https://vast.ai/?ref=AFFILIATE_ID",
     "gpu_id": "nvidia-rtx-5090",
-    "price_on_demand": 0.36,
-    "price_spot": 0.36,
+    "price_on_demand": 0.34,
+    "price_spot": 0.27,
     "storage_cost_per_gb": 0.08,
     "egress_cost_per_gb": 0,
     "rating": 4.5,
@@ -599,8 +599,8 @@
     "payment_model": "Marketplace",
     "cloud_type": "Community",
     "has_api_cli": true,
-    "last_updated": "2026-08-10T07:52:34.592Z",
-    "available_count": 2
+    "last_updated": "2026-08-10T13:22:15.031Z",
+    "available_count": 5
   },
   {
     "id": "vast-ai",
