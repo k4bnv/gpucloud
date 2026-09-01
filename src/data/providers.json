@@ -429,8 +429,8 @@
     "logo_emoji": "🔷",
     "affiliate_url": "https://vast.ai/?ref=AFFILIATE_ID",
     "gpu_id": "nvidia-rtx-4090",
-    "price_on_demand": 0.14,
-    "price_spot": 0.13,
+    "price_on_demand": 0.48,
+    "price_spot": 0.47,
     "storage_cost_per_gb": 0.08,
     "egress_cost_per_gb": 0,
     "rating": 4.5,
@@ -443,7 +443,7 @@
     "payment_model": "Marketplace",
     "cloud_type": "Community",
     "has_api_cli": true,
-    "last_updated": "2026-08-31T13:18:34.454Z",
+    "last_updated": "2026-09-01T11:27:33.847Z",
     "available_count": 1
   },
   {
@@ -589,8 +589,8 @@
     "logo_emoji": "🔷",
     "affiliate_url": "https://vast.ai/?ref=AFFILIATE_ID",
     "gpu_id": "nvidia-rtx-5090",
-    "price_on_demand": 0.35,
-    "price_spot": 0.35,
+    "price_on_demand": 0.32,
+    "price_spot": 0.3,
     "storage_cost_per_gb": 0.08,
     "egress_cost_per_gb": 0,
     "rating": 4.5,
@@ -603,8 +603,8 @@
     "payment_model": "Marketplace",
     "cloud_type": "Community",
     "has_api_cli": true,
-    "last_updated": "2026-09-01T04:37:14.527Z",
-    "available_count": 2
+    "last_updated": "2026-09-01T11:27:33.847Z",
+    "available_count": 4
   },
   {
     "id": "vast-ai",
@@ -613,8 +613,8 @@
     "logo_emoji": "🔷",
     "affiliate_url": "https://vast.ai/?ref=AFFILIATE_ID",
     "gpu_id": "nvidia-rtx-3090",
-    "price_on_demand": 0.08,
-    "price_spot": 0.08,
+    "price_on_demand": 0.07,
+    "price_spot": 0.07,
     "storage_cost_per_gb": 0.08,
     "egress_cost_per_gb": 0,
     "rating": 4.5,
@@ -627,7 +627,7 @@
     "payment_model": "Marketplace",
     "cloud_type": "Community",
     "has_api_cli": true,
-    "last_updated": "2026-08-27T22:06:36.140Z",
+    "last_updated": "2026-09-01T11:27:33.847Z",
     "available_count": 1
   },
   {
