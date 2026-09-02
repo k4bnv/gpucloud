@@ -603,8 +603,8 @@
     "payment_model": "Marketplace",
     "cloud_type": "Community",
     "has_api_cli": true,
-    "last_updated": "2026-09-02T16:22:48.352Z",
-    "available_count": 2
+    "last_updated": "2026-09-02T20:53:11.576Z",
+    "available_count": 3
   },
   {
     "id": "vast-ai",
